@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 07:56 PM
+-- Generation Time: Nov 02, 2023 at 08:07 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -136,7 +136,7 @@ CREATE TABLE `members` (
   `Eircode` varchar(10) DEFAULT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL,
   `Registration_Date` date DEFAULT NULL,
-  `Admin` int(11) NOT NULL DEFAULT 0
+  `Admin` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -144,11 +144,11 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`MemberID`, `Username`, `Password`, `First_Name`, `Last_Name`, `Email`, `Address1`, `Address2`, `Eircode`, `Phone_Number`, `Registration_Date`, `Admin`) VALUES
-(1, 'CoolGuy', 'password1', 'John', 'Doe', 'john.doe@email.com', '123 Main St', 'Apt 45', 'EIR123', '555-123-4567', '2023-11-01', 1),
-(2, 'AwesomeFella', 'password1', 'Jane', 'Smith', 'jane.smith@email.com', '456 Elm St', NULL, 'EIR456', '555-987-6543', '2023-11-01', 0),
-(3, 'ReaderOfBooks', 'password1', 'Bob', 'Johnson', 'bob.johnson@email.com', '789 Oak St', 'Suite 101', 'EIR789', '555-456-7890', '2023-11-02', 0),
-(4, 'Bookaholic', 'password1', 'Alice', 'Brown', 'alice.brown@email.com', '456 Birch Ave', NULL, 'EIR111', '555-111-2222', '2023-11-02', 0),
-(5, 'BookNerdAlert', 'password1', 'Sarah', 'Davis', 'sarah.davis@email.com', '789 Cedar Rd', 'Apt 22', 'EIR789', '555-333-4444', '2023-11-03', 0);
+(1, 'CoolGuy', 'password1', 'John', 'Doe', 'john.doe@email.com', '123 Main St', 'Apt 45', 'EIR123', '555-123-4567', '2023-11-01', b'1'),
+(2, 'AwesomeFella', 'password1', 'Jane', 'Smith', 'jane.smith@email.com', '456 Elm St', NULL, 'EIR456', '555-987-6543', '2023-11-01', b'0'),
+(3, 'ReaderOfBooks', 'password1', 'Bob', 'Johnson', 'bob.johnson@email.com', '789 Oak St', 'Suite 101', 'EIR789', '555-456-7890', '2023-11-02', b'0'),
+(4, 'Bookaholic', 'password1', 'Alice', 'Brown', 'alice.brown@email.com', '456 Birch Ave', NULL, 'EIR111', '555-111-2222', '2023-11-02', b'0'),
+(5, 'BookNerdAlert', 'password1', 'Sarah', 'Davis', 'sarah.davis@email.com', '789 Cedar Rd', 'Apt 22', 'EIR789', '555-333-4444', '2023-11-03', b'0');
 
 --
 -- Indexes for dumped tables
