@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class MemberDTO {
+public class members {
     private int memberID;
     private String username;
     private String password;
