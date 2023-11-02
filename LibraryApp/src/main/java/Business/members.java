@@ -1,3 +1,4 @@
+package Business;
 import java.util.Date;
 
 public class members {
@@ -14,11 +15,11 @@ public class members {
     private Date registrationDate;
 
     // Constructors, getters, and setters
-    public MemberDTO() {
+    public members() {
 
     }
 
-    public MemberDTO(int memberID, String username, String password, String firstName, String lastName,
+    public members(int memberID, String username, String password, String firstName, String lastName,
                      String email, String address1, String address2, String eircode, String phoneNumber, Date registrationDate) {
         this.memberID = memberID;
         this.username = username;
