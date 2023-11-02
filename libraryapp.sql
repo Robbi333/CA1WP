@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 05:35 PM
+-- Generation Time: Nov 02, 2023 at 05:48 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,14 @@ CREATE TABLE `author` (
   `lastname` varchar(255) NOT NULL,
   `bookid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `author`
+--
+
+INSERT INTO `author` (`authorid`, `firstname`, `lastname`, `bookid`) VALUES
+(1, 'Joanne ', 'Kathleen Rowling', 1),
+(6, 'Roald ', 'Dahl', 2);
 
 -- --------------------------------------------------------
 
@@ -74,6 +82,14 @@ CREATE TABLE `genre` (
   `genre1` varchar(255) NOT NULL,
   `genre2` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `genre`
+--
+
+INSERT INTO `genre` (`genreid`, `genre1`, `genre2`) VALUES
+(1, 'mystery', 'horror'),
+(2, 'fairy tail', 'fantasy fictions');
 
 -- --------------------------------------------------------
 
