@@ -1,21 +1,17 @@
 package daos;
 
+import exceptions.DaoException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Dao {
 
-    private final String libraryapp;
+    public Connection getConnection() throws DaoException {
 
-    public Dao(String libraryapp){
-        this.libraryapp = libraryapp;
-    }
-
-
-    public Connection getConnection(){
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/" + libraryapp;
+        String url = "jdbc:mysql://localhost:3306/libraryapp";
         String username = "root";
         String password = "";
         Connection con = null;
@@ -27,11 +23,12 @@ public class Dao {
             System.exit(1);
         } catch (SQLException ex2) {
             System.out.println("Connection failed " + ex2.getMessage());
+            System.exit(2);
         }
         return con;
     }
 
-    public void freeConnection(Connection con){
+    public void freeConnection(Connection con) throws DaoException {
         try {
             if (con != null) {
                 con.close();
@@ -42,4 +39,5 @@ public class Dao {
             System.exit(1);
         }
     }
+
 }
