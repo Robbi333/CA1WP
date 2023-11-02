@@ -14,6 +14,8 @@ public class members {
     private String Eircode;
     private String Phone_Number;
     private LocalDate Registration_Date;
+    private int Admin;
+
 
     // Constructors, getters, and setters
     public members() {
@@ -122,6 +124,27 @@ public class members {
     public void setRegistration_Date(LocalDate registration_Date) {
         Registration_Date = registration_Date;
     }
+
+    public boolean isAdmin(){
+
+        if(Admin == 1){
+
+            return true;
+        } else{
+
+            return false;
+        }
+    }
+
+    public int getAdmin() {
+        return Admin;
+    }
+
+    public void setAdmin(int admin) {
+        Admin = admin;
+    }
+
+
 
     @Override
     public String toString() {

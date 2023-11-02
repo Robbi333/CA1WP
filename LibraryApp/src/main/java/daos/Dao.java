@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Dao {
 
-    public Connection getConnection() throws DaoException {
+    public static Connection getConnection() throws DaoException {
 
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/libraryapp";

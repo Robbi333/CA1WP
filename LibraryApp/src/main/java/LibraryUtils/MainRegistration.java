@@ -1,3 +1,5 @@
+package LibraryUtils;
+
 import daos.Dao;
 import Business.members;
 
@@ -46,14 +48,12 @@ public class MainRegistration {
         // Create a Member object
         members member = new members(username, password, firstName, lastName, email, AddLine1, AddLine2, Eircode, Phone_Num, registrationDate);
 
-        // Create a Dao instance
-        Dao dao = new Dao("libraryapp");
 
         // Establish a database connection
-        try (Connection connection = dao.getConnection()) {
+        try (Connection connection = daos.Dao.getConnection()) {
             if (connection != null) {
                 // Insert the member into the database
-                boolean registrationSuccessful = dao.insertMember(connection, member);
+                boolean registrationSuccessful = daos.MembersDao.insertMember(connection, member);
 
                 if (registrationSuccessful) {
                     System.out.println("Registration successful!");

@@ -1,32 +1,53 @@
 package daos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import Business.book;
+import Business.members;
+import exceptions.DaoException;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MembersDao extends Dao {
 
-    private final String libraryapp;
-
-    public MembersDao(String libraryapp){
-
-        this.libraryapp = libraryapp;
-    };
-
-    public Connection getConnection() throws SQLException {
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/" + libraryapp;
-        String username = "root";
-        String password = "";
+    public static boolean insertMember(Connection con, members member) throws DaoException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
-            Class.forName(driver); // You might not need this if you're using a recent JDBC driver.
-            return DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException ex1) {
-            throw new SQLException("Failed to find driver class: " + ex1.getMessage());
-        } catch (SQLException ex2) {
-            throw new SQLException("Connection failed: " + ex2.getMessage());
+            String insertQuery = "INSERT INTO members (Username, Password, First_Name, Last_Name, Email, Address1, Address2, Eircode, Phone_Number, Registration_Date, Admin) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            ps = con.prepareStatement(insertQuery);
+            ps.setString(1, member.getUsername());
+            ps.setString(2, member.getPassword());
+            ps.setString(3, member.getFirst_Name());
+            ps.setString(4, member.getLast_Name());
+            ps.setString(5, member.getEmail());
+            ps.setString(6, member.getAddress1());
+            ps.setString(7, member.getAddress2());
+            ps.setString(8, member.getEircode());
+            ps.setString(9, member.getPhone_Number());
+            ps.setDate(10, Date.valueOf(member.getRegistration_Date()));
+            ps.setBoolean(11, member.isAdmin());
+
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Error inserting member: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                freeConnection(con);
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
         }
-    }}
-
-
+    }
+}
