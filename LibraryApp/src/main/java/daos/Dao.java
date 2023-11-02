@@ -28,7 +28,7 @@ public class Dao {
         return con;
     }
 
-    public void freeConnection(Connection con) throws DaoException {
+    public static void freeConnection(Connection con) throws DaoException {
         try {
             if (con != null) {
                 con.close();
