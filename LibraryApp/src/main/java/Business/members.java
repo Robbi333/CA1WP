@@ -1,4 +1,5 @@
 package Business;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class members {
@@ -12,17 +13,16 @@ public class members {
     private String Address2;
     private String Eircode;
     private String Phone_Number;
-    private Date Registration_Date;
+    private LocalDate Registration_Date;
 
     // Constructors, getters, and setters
     public members() {
 
     }
 
-    public members(int memberID, String username, String password, String first_Name,
+    public members(String username, String password, String first_Name,
                    String last_Name, String email, String address1, String address2, String eircode,
-                   String phone_Number, Date registration_Date) {
-        MemberID = memberID;
+                   String phone_Number, LocalDate registration_Date){
         Username = username;
         Password = password;
         First_Name = first_Name;
@@ -115,11 +115,11 @@ public class members {
         Phone_Number = phone_Number;
     }
 
-    public Date getRegistration_Date() {
+    public LocalDate getRegistration_Date() {
         return Registration_Date;
     }
 
-    public void setRegistration_Date(Date registration_Date) {
+    public void setRegistration_Date(LocalDate registration_Date) {
         Registration_Date = registration_Date;
     }
 
