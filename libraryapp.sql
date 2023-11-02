@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 05:20 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Generation Time: Nov 02, 2023 at 05:31 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -78,6 +78,22 @@ CREATE TABLE `genre` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `loans`
+--
+
+CREATE TABLE `loans` (
+  `LoanID` int(11) NOT NULL,
+  `MemberID` int(11) DEFAULT NULL,
+  `BookID` int(11) DEFAULT NULL,
+  `LoanDate` date DEFAULT NULL,
+  `DueDate` date DEFAULT NULL,
+  `ReturnDate` date DEFAULT NULL,
+  `LateFee` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `members`
 --
 
@@ -118,6 +134,14 @@ ALTER TABLE `genre`
   ADD PRIMARY KEY (`genreid`);
 
 --
+-- Indexes for table `loans`
+--
+ALTER TABLE `loans`
+  ADD PRIMARY KEY (`LoanID`),
+  ADD KEY `MemberID` (`MemberID`),
+  ADD KEY `BookID` (`BookID`);
+
+--
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
@@ -138,6 +162,17 @@ ALTER TABLE `author`
 --
 ALTER TABLE `genre`
   MODIFY `genreid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `loans`
+--
+ALTER TABLE `loans`
+  ADD CONSTRAINT `loans_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `members` (`MemberID`),
+  ADD CONSTRAINT `loans_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `book` (`Bookid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
