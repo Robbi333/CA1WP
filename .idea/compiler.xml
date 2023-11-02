@@ -9,8 +9,5 @@
         <module name="LibraryApp" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="LibraryApp" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>
