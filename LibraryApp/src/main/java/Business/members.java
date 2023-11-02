@@ -2,141 +2,141 @@ package Business;
 import java.util.Date;
 
 public class members {
-    private int memberID;
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String address1;
-    private String address2;
-    private String eircode;
-    private String phoneNumber;
-    private Date registrationDate;
+    private int MemberID;
+    private String Username;
+    private String Password;
+    private String First_Name;
+    private String Last_Name;
+    private String Email;
+    private String Address1;
+    private String Address2;
+    private String Eircode;
+    private String Phone_Number;
+    private Date Registration_Date;
 
     // Constructors, getters, and setters
     public members() {
 
     }
 
-    public members(int memberID, String username, String password, String firstName, String lastName,
-                     String email, String address1, String address2, String eircode, String phoneNumber, Date registrationDate) {
-        this.memberID = memberID;
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.eircode = eircode;
-        this.phoneNumber = phoneNumber;
-        this.registrationDate = registrationDate;
+    public members(int memberID, String username, String password, String first_Name,
+                   String last_Name, String email, String address1, String address2, String eircode,
+                   String phone_Number, Date registration_Date) {
+        MemberID = memberID;
+        Username = username;
+        Password = password;
+        First_Name = first_Name;
+        Last_Name = last_Name;
+        Email = email;
+        Address1 = address1;
+        Address2 = address2;
+        Eircode = eircode;
+        Phone_Number = phone_Number;
+        Registration_Date = registration_Date;
     }
 
-    // Getters and setters for each field
     public int getMemberID() {
-        return memberID;
+        return MemberID;
     }
 
     public void setMemberID(int memberID) {
-        this.memberID = memberID;
+        MemberID = memberID;
     }
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        Username = username;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        Password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_Name() {
+        return First_Name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_Name(String first_Name) {
+        First_Name = first_Name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_Name() {
+        return Last_Name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_Name(String last_Name) {
+        Last_Name = last_Name;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        Email = email;
     }
 
     public String getAddress1() {
-        return address1;
+        return Address1;
     }
 
     public void setAddress1(String address1) {
-        this.address1 = address1;
+        Address1 = address1;
     }
 
     public String getAddress2() {
-        return address2;
+        return Address2;
     }
 
     public void setAddress2(String address2) {
-        this.address2 = address2;
+        Address2 = address2;
     }
 
     public String getEircode() {
-        return eircode;
+        return Eircode;
     }
 
     public void setEircode(String eircode) {
-        this.eircode = eircode;
+        Eircode = eircode;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_Number() {
+        return Phone_Number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_Number(String phone_Number) {
+        Phone_Number = phone_Number;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Date getRegistration_Date() {
+        return Registration_Date;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setRegistration_Date(Date registration_Date) {
+        Registration_Date = registration_Date;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "MemberDTO{" +
-                "memberID=" + memberID +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", eircode='" + eircode + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", registrationDate=" + registrationDate +
+    @Override
+    public String toString() {
+        return "members{" +
+                "MemberID=" + MemberID +
+                ", Username='" + Username + '\'' +
+                ", Password='" + Password + '\'' +
+                ", First_Name='" + First_Name + '\'' +
+                ", Last_Name='" + Last_Name + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Address1='" + Address1 + '\'' +
+                ", Address2='" + Address2 + '\'' +
+                ", Eircode='" + Eircode + '\'' +
+                ", Phone_Number='" + Phone_Number + '\'' +
+                ", Registration_Date=" + Registration_Date +
                 '}';
     }
 }
