@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 05:31 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Nov 02, 2023 at 05:35 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -112,67 +112,25 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`MemberID`, `Username`, `Password`, `First_Name`, `Last_Name`, `Email`, `Address1`, `Address2`, `Eircode`, `Phone_Number`, `Registration_Date`) VALUES
+(1, 'CoolGuy', 'password1', 'John', 'Doe', 'john.doe@email.com', '123 Main St', 'Apt 45', 'EIR123', '555-123-4567', '2023-11-01'),
+(2, 'AwesomeFella', 'password1', 'Jane', 'Smith', 'jane.smith@email.com', '456 Elm St', NULL, 'EIR456', '555-987-6543', '2023-11-01'),
+(3, 'ReaderOfBooks', 'password1', 'Bob', 'Johnson', 'bob.johnson@email.com', '789 Oak St', 'Suite 101', 'EIR789', '555-456-7890', '2023-11-02'),
+(4, 'Bookaholic', 'password1', 'Alice', 'Brown', 'alice.brown@email.com', '456 Birch Ave', NULL, 'EIR111', '555-111-2222', '2023-11-02'),
+(5, 'BookNerdAlert', 'password1', 'Sarah', 'Davis', 'sarah.davis@email.com', '789 Cedar Rd', 'Apt 22', 'EIR789', '555-333-4444', '2023-11-03');
+
+--
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `author`
---
-ALTER TABLE `author`
-  ADD PRIMARY KEY (`authorid`);
-
---
--- Indexes for table `book`
---
-ALTER TABLE `book`
-  ADD PRIMARY KEY (`Bookid`);
-
---
--- Indexes for table `genre`
---
-ALTER TABLE `genre`
-  ADD PRIMARY KEY (`genreid`);
-
---
--- Indexes for table `loans`
---
-ALTER TABLE `loans`
-  ADD PRIMARY KEY (`LoanID`),
-  ADD KEY `MemberID` (`MemberID`),
-  ADD KEY `BookID` (`BookID`);
 
 --
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`MemberID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `author`
---
-ALTER TABLE `author`
-  MODIFY `authorid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `genre`
---
-ALTER TABLE `genre`
-  MODIFY `genreid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `loans`
---
-ALTER TABLE `loans`
-  ADD CONSTRAINT `loans_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `members` (`MemberID`),
-  ADD CONSTRAINT `loans_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `book` (`Bookid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
