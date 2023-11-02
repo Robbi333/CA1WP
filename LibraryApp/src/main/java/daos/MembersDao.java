@@ -1,13 +1,10 @@
 package daos;
 
-<<<<<<< HEAD
-import Business.book;
+
 import Business.members;
 import exceptions.DaoException;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MembersDao extends Dao {
 
