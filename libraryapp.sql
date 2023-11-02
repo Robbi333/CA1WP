@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 05:48 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Generation Time: Nov 02, 2023 at 05:55 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -106,6 +106,17 @@ CREATE TABLE `loans` (
   `ReturnDate` date DEFAULT NULL,
   `LateFee` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `loans`
+--
+
+INSERT INTO `loans` (`LoanID`, `MemberID`, `BookID`, `LoanDate`, `DueDate`, `ReturnDate`, `LateFee`) VALUES
+(1, 1, 1, '2023-11-02', '2023-11-16', NULL, NULL),
+(2, 1, 2, '2023-11-03', '2023-11-17', NULL, NULL),
+(3, 2, 3, '2023-11-04', '2023-11-18', NULL, NULL),
+(4, 3, 4, '2023-11-05', '2023-11-19', NULL, NULL),
+(5, 4, 5, '2023-11-06', '2023-11-20', NULL, NULL);
 
 -- --------------------------------------------------------
 
