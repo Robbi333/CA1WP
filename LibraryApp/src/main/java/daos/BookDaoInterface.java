@@ -42,11 +42,31 @@ public interface BookDaoInterface {
        }
        boolean canBorrowBook(int memberID, int bookid) throws DaoException {
 
+       if(bookAlreadyBorrowed(memberID, bookid)) {
+           return false;
+       }
+       if(!bookAlreadyBorrowed(bookid)) {
+           return true;
+       }
+
        }
        boolean returnbook(int memberID, int bookid) throws DaoException {
 
+       if(bookAlreadyBorrowed(memberID, bookid)) {
+           borrrowBook.remove(bookid);
+           return true;
+       } else {
+
+           return false;
        }
-       List<Book> findAllBooks() throws DaoException
+
+       }
+
+    private boolean bookAlreadyBorrowed(int memberID, int bookid) {
+        return borrrowBook.contains(bookid);
+    }
+
+    List<Book> findAllBooks() throws DaoException
 
        }
 
