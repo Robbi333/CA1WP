@@ -158,6 +158,10 @@ public class LoanDao extends Dao {
            if (bookAlreadyBorrowed(memberID, bookid)) {
                borrowedBooks.remove(bookid);
 
+               if (isLate(memberID, bookid)) {
+                   addLateFeeToLoan(memberID, bookid);
+               }
+
                String sql = "DELETE FROM BorrowedBooks Where MemberID = ? AND bookid = ?";
 
                ps = con.prepareStatement(sql);
@@ -194,6 +198,65 @@ public class LoanDao extends Dao {
            }
        }
    }
+
+   public boolean isLate(int memberID,int bookid){
+       Connection con = null;
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+
+       try {
+           con = getConnection();
+
+           String sql = "SELECT DueDate FROM loans WHERE MemberID = ? AND Bookid = ?";
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, memberID);
+           ps.setInt(2, bookid);
+
+           rs = ps.executeQuery();
+           if (rs.next()) {
+
+               Date dueDate = rs.getDate("DueDate");
+
+               Date currentDate = new Date();
+
+               if (currentDate.after(dueDate)) {
+                   return true;
+               }
+           }
+           return false;
+       } catch (SQLException e) {
+           throw new RuntimeException("Error checking if book is late: " + e.getMessage());
+       }
+   }
+
+    private void addLateFeeToLoan(int memberID, int bookid) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+
+            String sql = "UPDATE loans SET LateFee = 10 WHERE MemberID = ? AND Bookid = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, memberID);
+            ps.setInt(2, bookid);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                //fee added
+            } else {
+                //problem adding fee
+            }
+        } catch (SQLException e) {
+            // Handle SQL-related exceptions here, log them, or throw an exception
+            throw new RuntimeException("Error adding late fee to loan: " + e.getMessage(), e);
+        }
+    }
+
+
+
+
     private boolean bookAlreadyBorrowed(int memberID,int bookid) {
 
 
