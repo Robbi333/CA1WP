@@ -63,7 +63,7 @@ public class BookDao extends Dao{
         PreparedStatement ps = null;
 
         try {
-            connection =
+            con = getConnection();
 
             if (canBorrowBook(memberID, bookid)) {
                 String sql = "INSERT INTO BorrowedBooks (MemberID, Bookid, BorrowDate) VALUES (?, ?, NOW())";
@@ -79,7 +79,7 @@ public class BookDao extends Dao{
             }
             return false;
         } catch (SQLException e) {
-            throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage(), e);
+            throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage());
         } finally {
             try {
                 if(ps != null) ps.close();
@@ -98,7 +98,6 @@ public class BookDao extends Dao{
         if(!bookAlreadyBorrowed(bookid)) {
             return true;
         }
-
     }
     boolean returnbook(int memberID, int bookid) throws DaoException {
 

@@ -5,6 +5,6 @@ import exceptions.DaoException;
 import java.util.List;
 
 public interface BookDaoInterface {
-    List<Book> findAllBooks() throws DaoException
+    List<book> findAllBooks() throws DaoException;
 }
 
