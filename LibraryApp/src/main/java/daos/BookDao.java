@@ -58,6 +58,69 @@ public class BookDao extends Dao{
     }
 
 
+    public boolean borrrowBook(int MemberID, int bookid) throws DaoException {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            connection =
+
+            if (canBorrowBook(memberID, bookid)) {
+                String sql = "INSERT INTO BorrowedBooks (MemberID, Bookid, BorrowDate) VALUES (?, ?, NOW())";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, memberID);
+                ps.setInt(2, bookid);
+
+                int rows = ps.executeUpdate();
+
+                if (rows > 0) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage(), e);
+        } finally {
+            try {
+                if(ps != null) ps.close();
+                if (con != null) con.close();
+
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+    boolean canBorrowBook(int memberID, int bookid) throws DaoException {
+
+        if(bookAlreadyBorrowed(memberID, bookid)) {
+            return false;
+        }
+        if(!bookAlreadyBorrowed(bookid)) {
+            return true;
+        }
+
+    }
+    boolean returnbook(int memberID, int bookid) throws DaoException {
+
+        if(bookAlreadyBorrowed(memberID, bookid)) {
+            borrrowBook.remove(bookid);
+            return true;
+        } else {
+
+            return false;
+        }
+
+    }
+
+    private boolean bookAlreadyBorrowed(int memberID, int bookid) {
+        return borrrowBook.contains(bookid);
+    }
+
+
+}
+
+
+
 
 
 }
