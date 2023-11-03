@@ -8,14 +8,46 @@ public interface BookDaoInterface {
 
 
 
-    boolean borrrowBook(int MemberID, int bookid) throws DaoException;
+   public boolean borrrowBook(int MemberID, int bookid) throws DaoException {
+       Connection con = null;
+       PreparedStatement ps = null;
 
-    boolean returnBook(int MemberID, int bookid) throws DaoExcecption;
+       try {
+           connection =
 
-    boolean canBorrowBooks(int MemberID, int bookid) throws DaoException;
+           if (canBorrowBook(memberID, bookid)) {
+               String sql = "INSERT INTO BorrowedBooks (MemberID, Bookid, BorrowDate) VALUES (?, ?, NOW())";
+               ps = con.prepareStatement(sql);
+               ps.setInt(1, memberID);
+               ps.setInt(2, bookid);
 
-    public List<book> findAllBooks() throws DaoException;
+               int rows = ps.executeUpdate();
+
+               if (rows > 0) {
+                   return true;
+               }
+           }
+           return false;
+       } catch (SQLException e) {
+           throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage(), e);
+       } finally {
+           try {
+               if(ps != null) ps.close();
+               if (con != null) con.close();
+
+           } catch (SQLException e) {
+
+           }
+       }
+       }
+       boolean canBorrowBook(int memberID, int bookid) throws DaoException {
+
+       }
+       boolean returnbook(int memberID, int bookid) throws DaoException {
+
+       }
+       List<Book> findAllBooks() throws DaoException
+
+       }
 
 
-
-}
