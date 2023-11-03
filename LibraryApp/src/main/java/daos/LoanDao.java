@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +96,7 @@ public class LoanDao extends Dao {
 
         return loans;
     }
+
     private List<Integer> borrowedBooks = new ArrayList<>();
     public boolean BorrowBook(int memberID, int bookid) throws DaoException {
         Connection con = null;
@@ -195,6 +198,78 @@ public class LoanDao extends Dao {
 
 
         return borrowedBooks.contains(bookid);
+    }
+
+    public static boolean isCreditCardValid(String cardNumber, String expiryDate) {
+
+        cardNumber = cardNumber.replaceAll("[^0-9]", "");
+
+        int length = cardNumber.length();
+        if (length < 13 || length > 19) {
+            return false;
+        }
+
+        if (!isValidExpiryDate(expiryDate)) {
+            return false;
+        }
+        //just checking for lenght and valid date time
+        return true;
+    }
+
+    private static boolean isValidExpiryDate(String expiryDate) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+            Date currentDate = new Date();
+            Date parsedExpiryDate = dateFormat.parse(expiryDate);
+
+            return currentDate.before(parsedExpiryDate);
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+
+    public boolean payLateFeeValidate(int memberId, double lateFee,String cardNumber,String expiryDate) {
+
+        if (!isCreditCardValid(cardNumber, expiryDate)) {
+            return false;
+        }
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = getConnection();
+            String sql = "UPDATE loans Set LateFee = 0.00 where memberId =?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, memberId);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (DaoException e) {
+            throw new RuntimeException("Error paying late fee: " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error occurred");
+            }
+
+
+        }
     }
 
     }
