@@ -58,4 +58,39 @@ public class LoanDao extends Dao {
         return activeLoans;
     }
 
-}
+    public List<loans> getLoansForMember(int memberId) throws DaoException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        con = getConnection();
+        List<loans> loans = new ArrayList<>();
+
+
+        String sql = "SELECT LoanID, MemberID, BookID, LoanDate, DueDate, ReturnDate, LateFee " +
+                "FROM loans WHERE MemberID = ? AND ReturnDate IS NULL";
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setInt(1, memberId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int loanId = resultSet.getInt("LoanID");
+                    int bookId = resultSet.getInt("BookID");
+                    Date loanDate = resultSet.getDate("LoanDate");
+                    Date dueDate = resultSet.getDate("DueDate");
+                    Date returnDate = resultSet.getDate("ReturnDate");
+                    double lateFee = resultSet.getDouble("LateFee");
+
+                    // Create a Loan object with the retrieved details
+                    loans loan = new loans(loanId, memberId, bookId, loanDate, dueDate, returnDate, lateFee);
+                    loans.add(loan);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Error retrieving loans: " + e.getMessage());
+        }
+
+        return loans;
+    }
+
+    }
+
