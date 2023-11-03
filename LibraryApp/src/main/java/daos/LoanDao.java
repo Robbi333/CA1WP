@@ -65,9 +65,8 @@ public class LoanDao extends Dao {
         con = getConnection();
         List<loans> loans = new ArrayList<>();
 
-
         String sql = "SELECT LoanID, MemberID, BookID, LoanDate, DueDate, ReturnDate, LateFee " +
-                "FROM loans WHERE MemberID = ? AND ReturnDate IS NULL";
+                "FROM loans WHERE MemberID = ?" ;
         try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
             preparedStatement.setInt(1, memberId);
 
@@ -80,7 +79,7 @@ public class LoanDao extends Dao {
                     Date returnDate = resultSet.getDate("ReturnDate");
                     double lateFee = resultSet.getDouble("LateFee");
 
-                    // Create a Loan object with the retrieved details
+
                     loans loan = new loans(loanId, memberId, bookId, loanDate, dueDate, returnDate, lateFee);
                     loans.add(loan);
                 }
