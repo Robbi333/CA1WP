@@ -3,6 +3,7 @@ package daos;
 import Business.loans;
 import exceptions.DaoException;
 
+import java.awt.print.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 public class LoanDao extends Dao {
+    private int memberID;
+    private int bookid;
+
     public List<loans> viewActiveLoans(int memberID) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -90,6 +94,112 @@ public class LoanDao extends Dao {
 
         return loans;
     }
+    private List<Integer> borrowedBooks = new ArrayList<>();
+    public boolean BorrowBook(int memberID, int bookid) throws DaoException {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+
+            if (canBorrowBook(memberID, bookid)) {
+                String sql = "INSERT INTO loans (MemberID, Bookid) VALUES (?, ?, NOW())";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, memberID);
+                ps.setInt(2, bookid);
+
+                int rows = ps.executeUpdate();
+
+                if (rows > 0) {
+                    return true;
+                } else if (!bookAlreadyBorrowed(memberID, bookid)) {
+
+                    borrowedBooks.add(bookid);
+                    return true;
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage());
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+
+
+   public boolean canBorrowBook(int memberID, int bookid) throws DaoException {
+       this.memberID = memberID;
+       this.bookid = bookid;
+
+       if(bookAlreadyBorrowed(memberID, bookid)) {
+            return false;
+        }
+        if(!bookAlreadyBorrowed(memberID, bookid)) {
+            return true;
+        }
+        return false;
+    }
+   public boolean returnbook(int memberID, int bookid) throws DaoException {
+       Connection con = null;
+       PreparedStatement ps = null;
+
+       try {
+           con = getConnection();
+
+           if (bookAlreadyBorrowed(memberID, bookid)) {
+               borrowedBooks.remove(bookid);
+
+               String sql = "DELETE FROM BorrowedBooks Where MemberID = ? AND bookid = ?";
+
+               ps = con.prepareStatement(sql);
+               ps.setInt(1, memberID);
+               ps.setInt(2,bookid);
+
+               int rows = ps.executeUpdate();
+
+               if (rows > 0) {
+                   return true;
+               }
+
+           }
+           return false;
+       } catch (SQLException e) {
+           throw new DaoException("Error Retuning a Book:" + e.getMessage());
+       } finally {
+           try {
+               if (ps != null) {
+                   ps.close();
+               }
+               try {
+                   if (con != null) {
+                       con.close();
+                   }
+               } catch(SQLException e){
+                   throw new RuntimeException(e);
+
+               }
+
+           } catch (SQLException e) {
+               throw new RuntimeException(e);
+
+           }
+       }
+   }
+    private boolean bookAlreadyBorrowed(int memberID,int bookid) {
+
+
+        return borrowedBooks.contains(bookid);
+    }
 
     }
+
+
+
+
 
