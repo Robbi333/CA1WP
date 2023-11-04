@@ -30,7 +30,7 @@ public class LoanDao extends Dao {
     }
 
 
-
+        //leo
     /**
      * gets the list of all loans for member
      *
@@ -87,7 +87,7 @@ public class LoanDao extends Dao {
 
         return activeLoans;
     }
-
+    //leo
     /**
      * gets list of loans for member
      *
@@ -145,7 +145,7 @@ public class LoanDao extends Dao {
      * @return it is true if the book was successfully borrowed and false otherwise
      * @throws DaoException if there is any error during the borrowing process
      */
-
+    //destiny
     public boolean BorrowBook(int memberID, int bookid) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -181,7 +181,7 @@ public class LoanDao extends Dao {
         }
         return false;
     }
-
+    //destiny
     /**
      *
      * adds to see if you can check if the book needs to be borrowed
@@ -200,6 +200,7 @@ public class LoanDao extends Dao {
         }
        return !bookAlreadyBorrowed(memberID, bookid);
    }
+    //destiny
     /**
      *
      * adds the returning of a book
@@ -257,7 +258,7 @@ public class LoanDao extends Dao {
            }
        }
    }
-
+    //leo
     /**
      * checks if a book is overdue the date for member
      *
@@ -297,7 +298,7 @@ public class LoanDao extends Dao {
            throw new RuntimeException("Error checking if book is late: " + e.getMessage());
        }
    }
-
+    //leo
     /**
      *adds a late fee to specific loan in database
      *
@@ -333,7 +334,7 @@ public class LoanDao extends Dao {
         }
     }
 
-
+    //destiny
     /**
      *
      * to check if a book with the bookid that is given is being borrowed by a member already
@@ -352,7 +353,7 @@ public class LoanDao extends Dao {
             return check;
         }
     }
-
+    //leo
     /**
      * validates the credit card number using Luhn algorithm
      *
@@ -390,7 +391,7 @@ public class LoanDao extends Dao {
 
         return (sum % 10 == 0);
     }
-
+    //leo
     /**
      * validates the format and checks if date is correct
      *
@@ -411,7 +412,7 @@ public class LoanDao extends Dao {
             return false;
         }
     }
-
+    //leo
     /**
      * checks and processes the payment for a late fee for a member
      *

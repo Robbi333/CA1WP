@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class BookDao extends Dao {
 
+    //leo
     /**
      * Constructs a new BookDao with the specified database name.
      *
@@ -29,6 +30,7 @@ public class BookDao extends Dao {
      * @return A list of book objects containing info about all the books
      * @throws DaoException if an error occurs in the database operation
      */
+    //leo
     public List<book> findAllBooks() throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -73,7 +75,7 @@ public class BookDao extends Dao {
         }
         return books;
     }
-
+    //roberts
     /**
      * Inserts a new book into the library's database.
      *
@@ -121,7 +123,7 @@ public class BookDao extends Dao {
             }
         }
     }
-
+    //roberts
     /**
      * Updates the total number of copies for a book with the specified BookID.
      *
