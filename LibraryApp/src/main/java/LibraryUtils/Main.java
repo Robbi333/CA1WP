@@ -108,12 +108,17 @@ public class Main {
                     break;
                 case 6:
                     //loan book
-                    int member = 1;
-                    int bookID = 1;
+                    System.out.println("Welcome to my Library");
+
+                    System.out.println("Enter your Member ID");
+                    int memberID = scanner.nextInt();
+
+                    System.out.println("Enter the Book ID you want to borrow");
+                    int bookID = scanner.nextInt();
 
                     try {
                         LoanDao library = new LoanDao("library");
-                        boolean isBorrowed = library.BorrowBook(member, bookID);
+                        boolean isBorrowed = library.BorrowBook(memberID, bookID);
                         if (isBorrowed) {
                             System.out.println("Book successfully borrowed!");
                         } else {
@@ -122,6 +127,8 @@ public class Main {
 
                     } catch (DaoException e) {
                         System.out.println("An error Ocurred"+ e.getMessage());
+                    } finally {
+                        scanner.close();
                     }
                     break;
                 case 7:
