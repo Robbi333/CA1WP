@@ -1,6 +1,7 @@
 package LibraryUtils;
 
 import Business.members;
+import daos.BookDao;
 import daos.LoanDao;
 import daos.MembersDao;
 import exceptions.DaoException;
@@ -51,7 +52,7 @@ public class Main {
 
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -99,12 +100,34 @@ public class Main {
                     break;
                 case 3:
                     //view all books
+                    BookDao booky = new BookDao("libraryapp");
+                    try {
+                        System.out.println(booky.findAllBooks());
+                    }catch (DaoException e){
+                        System.out.println("error displaying books");
+                    }
                     break;
                 case 4:
                     //view active loans
+                    LoanDao loany = new LoanDao("libraryapp");
+                    System.out.println("Please enter your member id to see current active book loans");
+                    int memberID1 = scanner.nextInt();
+                    try {
+                        System.out.println(loany.viewActiveLoans(memberID1));
+                    }catch (DaoException e){
+                        System.out.println("Couldn't display your loans, sorry");
+                    }
                     break;
                 case 5:
-                    //view past loans since joining
+                    //view all loans
+                    LoanDao loanys = new LoanDao("libraryapp");
+                    System.out.println("Please enter your member id to see all book loans");
+                    int memID = scanner.nextInt();
+                    try {
+                        System.out.println(loanys.getLoansForMember(memID));
+                    }catch (DaoException e){
+                        System.out.println("Couldn't display your loans, sorry");
+                    }
                     break;
                 case 6:
                     //loan book
@@ -160,9 +183,41 @@ public class Main {
                     break;
                 case 8:
                     //view late views
+                    LoanDao loanyes = new LoanDao("libraryapp");
+                    System.out.println("Too see if you have any fees for a book, please follow");
+                    System.out.println("Please enter your member id ");
+                    int memIDs = scanner.nextInt();
+                    System.out.println("Please enter the book id");
+                    int boookieID = scanner.nextInt();
+                    if(!loanyes.isLate(memIDs, boookieID)){
+                        System.out.println("you appear to have a fee for the book");
+                        try {
+                            System.out.println(loanyes.getLoansForMember(memIDs));
+                        }catch (DaoException e){
+                            System.out.println("Error showing loans");
+                        }
+                    }else{
+                        System.out.println("You have no fee for that book");
+                    }
+
                     break;
                 case 9:
-                    //pay late fees
+
+                    LoanDao loas = new LoanDao("libraryapp");
+
+                    System.out.println("pay for fee");
+                    System.out.println("Enter member id:");
+                    int Memsid = scanner.nextInt();
+                    System.out.println("please enter credit card number:");
+                    String creditCardnum = scanner.nextLine();
+                    System.out.println("please enter credit expiry date:");
+                    String expiry = scanner.nextLine();
+
+                    if(!loas.payLateFeeValidate(Memsid, creditCardnum, expiry)){
+                        System.out.println(" card payment went through");
+                    }else{
+                        System.out.println("Please try again!");
+                    }
                     break;
                 case 10:
                     System.exit(0);
