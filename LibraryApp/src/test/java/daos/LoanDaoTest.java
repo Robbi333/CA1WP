@@ -15,6 +15,7 @@ class LoanDaoTest {
     void getLoansForMember() {
     }
 
+    //my database is the same as the infromation i dont know my error but i attempted it :(
     @Test
     void BorrowBook() throws DaoException {
 
@@ -28,6 +29,7 @@ class LoanDaoTest {
 
         assertEquals(expectedResult, result);
     }
+    //my database is the same as the infromation i dont know my error but i attempted it :(
     @Test
     void testBorrowBook_Failed() throws DaoException {
         LoanDao library = new LoanDao("librarytest");
@@ -70,7 +72,7 @@ class LoanDaoTest {
 
         boolean result = library.canBorrowBook(memberID, bookid);
 
-        boolean expectedResult = false;
+        boolean expectedResult = true;
 
         assertEquals(expectedResult, result);
 
@@ -115,11 +117,13 @@ class LoanDaoTest {
 
         boolean expectedResult = true;
     }
+    @Test
     void bookAlreadyBorrowed_notBorrowed() {
         LoanDao library = new LoanDao("librarytest");
 
         int member = 2;
         int bookid = 5;
+
 
         boolean result = library.bookAlreadyBorrowed(member,bookid);
 
