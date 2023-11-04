@@ -46,7 +46,7 @@ public class LoanDao extends Dao {
         List<loans> activeLoans = new ArrayList<>();
 
         try {
-            con = this.getConnection();
+            con = getConnection();
 
             String query = "SELECT * FROM loans WHERE MemberID = ? AND ReturnDate IS NULL AND DueDate > CURDATE()";
             ps = con.prepareStatement(query);
@@ -196,11 +196,8 @@ public class LoanDao extends Dao {
        if(bookAlreadyBorrowed(memberID, bookid)) {
             return false;
         }
-        if(!bookAlreadyBorrowed(memberID, bookid)) {
-            return true;
-        }
-        return false;
-    }
+       return !bookAlreadyBorrowed(memberID, bookid);
+   }
     /**
      *
      * adds the returning of a book
@@ -232,9 +229,7 @@ public class LoanDao extends Dao {
 
                int rows = ps.executeUpdate();
 
-               if (rows > 0) {
-                   return true;
-               }
+               return rows > 0;
 
            }
            return false;
@@ -292,9 +287,7 @@ public class LoanDao extends Dao {
 
                Date currentDate = new Date();
 
-               if (currentDate.after(dueDate)) {
-                   return true;
-               }
+               return currentDate.after(dueDate);
            }
            return false;
        } catch (SQLException e) {

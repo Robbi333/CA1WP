@@ -33,7 +33,7 @@ public class BookDao extends Dao {
         List<book> books = new ArrayList<>();
 
         try {
-            con = this.getConnection();
+            con = getConnection();
 
             String query = "Select * from book";
             ps = con.prepareStatement(query);
@@ -77,7 +77,7 @@ public class BookDao extends Dao {
         ResultSet rs = null;
 
         try {
-            con = this.getConnection();
+            con = getConnection();
 
             String insertQuery = "INSERT INTO book (Title, AuthorID, ISBN, PublicationYear, GenreID, TotalCopies, Description) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";

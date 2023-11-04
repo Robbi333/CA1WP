@@ -84,8 +84,7 @@ class LoanDaoTest {
         int bookid = 101;
 
         boolean result;
-        if (library.returnbook(memberID, bookid)) result = true;
-        else result = false;
+        result = library.returnbook(memberID, bookid);
 
     }
 

@@ -127,13 +127,7 @@ public class members {
 
     public boolean isAdmin(){
 
-        if(Admin == 1){
-
-            return true;
-        } else{
-
-            return false;
-        }
+        return Admin == 1;
     }
 
     public int getAdmin() {

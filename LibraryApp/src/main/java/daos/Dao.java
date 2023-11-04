@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Dao {
 
-    private String databaseName;
+    public String databaseName;
 
     /**
      * creates a new Dao instance with the passed database name.

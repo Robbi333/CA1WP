@@ -11,12 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
  class MembersDaoTest {
 
     @Test
-    public void testInsertMember() throws SQLException, DaoException {
+    public void testInsertMember() throws SQLException {
         members testMember = new members("testUser", "testPassword", "John", "Doe", "john@example.com",
                 "123 Main St", "Apt 4B", "12345", "555-555-5555", Date.valueOf("2023-11-02").toLocalDate());
 
@@ -29,9 +30,9 @@ import static org.mockito.Mockito.*;
         when(ps.executeUpdate()).thenReturn(1);
 
         MembersDao membersDao = new MembersDao("testLibraryApp");
-        boolean result = membersDao.insertMember(dbConn, testMember);
+        boolean result = MembersDao.insertMember(dbConn, testMember);
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     }
