@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author roberts, leo.
+ */
 public class BookDao extends Dao {
 
     /**

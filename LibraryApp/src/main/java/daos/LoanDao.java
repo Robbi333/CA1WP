@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author leo, destiny.
+ */
 public class LoanDao extends Dao {
     private int memberID;
     private int bookid;
@@ -274,7 +277,7 @@ public class LoanDao extends Dao {
        try {
            con = getConnection();
 
-           String sql = "SELECT DueDate FROM loans WHERE MemberID = ? AND Bookid = ?";
+           String sql = "SELECT DueDate, ReturnDate FROM loans WHERE MemberID = ? AND Bookid = ?";
            ps = con.prepareStatement(sql);
            ps.setInt(1, memberID);
            ps.setInt(2, bookid);
@@ -283,10 +286,11 @@ public class LoanDao extends Dao {
            if (rs.next()) {
 
                Date dueDate = rs.getDate("DueDate");
+               Date returnDate = rs.getDate("ReturnDate");
 
-               Date currentDate = new Date();
-
-               return currentDate.after(dueDate);
+               if(returnDate != null){
+                   return returnDate.after(dueDate);
+               }
            }
            return false;
        } catch (SQLException e) {
@@ -358,7 +362,7 @@ public class LoanDao extends Dao {
      * @param cardNumber the credit card number to validate
      * @return if credit card number is valid return true otherwise return false
      */
-    public static boolean isCreditCardValid(String cardNumber) {
+    public  boolean isCreditCardValid(String cardNumber) {
 
         cardNumber = cardNumber.replaceAll("[^0-9]", "");
 
@@ -396,7 +400,7 @@ public class LoanDao extends Dao {
      * @param expiryDate
      * @return
      */
-    public static boolean isValidExpiryDate(String expiryDate) {
+    public boolean isValidExpiryDate(String expiryDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
             Date currentDate = new Date();

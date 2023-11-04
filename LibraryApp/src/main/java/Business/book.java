@@ -2,6 +2,9 @@ package Business;
 
 import java.util.Objects;
 
+/**
+ * @author destiny.
+ */
 public class book {
     private int Bookid;
     private String Title;

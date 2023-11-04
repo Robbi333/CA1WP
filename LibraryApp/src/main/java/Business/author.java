@@ -1,5 +1,8 @@
 package Business;
 
+/**
+ * @author destiny.
+ */
 public class author {
 
     private int authorid;

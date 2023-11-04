@@ -1,6 +1,5 @@
 package daos;
 
-import Business.book;
 import Business.loans;
 import exceptions.DaoException;
 import org.junit.jupiter.api.Test;
@@ -10,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+/**
+ *
+ * @author leo, Destiny
+ */
 class LoanDaoTest {
 
     /**
@@ -133,7 +135,7 @@ class LoanDaoTest {
         assertArrayEquals(expectedResults.toArray(),result.toArray());
     }
 
-    
+
     //my database is the same as the infromation i dont know my error but i attempted it :(
     @Test
     /**
@@ -229,20 +231,129 @@ class LoanDaoTest {
 
     }
 
+    /**
+     * checks if the return date is in date
+     * @throws SQLException
+     */
     @Test
-    void isLate() {
+    void isLate() throws SQLException {
+
+        int memberID = 1;
+        int bookid = 1;
+
+        LoanDao loan = new LoanDao("librarytest");
+
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(dbConn.prepareStatement("SELECT DueDate,ReturnDate FROM loans WHERE MemberID = ? AND BookID = ?")).thenReturn(ps);
+        when(ps.executeQuery()).thenReturn(rs);
+
+        when(rs.next()).thenReturn(true);
+
+       Date dueDate = Date.valueOf("2023-11-16");
+       Date returnDate = Date.valueOf("2023-11-15");
+       when(rs.getDate("DueDate")).thenReturn(dueDate);
+       when(rs.getDate("ReturnDate")).thenReturn(returnDate);
+
+        boolean result = loan.isLate(memberID,bookid);
+        //returns false if its not late
+        assertFalse(result);
+
     }
 
+    /**
+     * checks if it is late
+     * @throws SQLException
+     */
+    @Test
+    void isLateTrue() throws SQLException {
+
+        int memberID = 1;
+        int bookid = 2;
+
+        LoanDao loan = new LoanDao("librarytest");
+
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(dbConn.prepareStatement("SELECT DueDate,ReturnDate FROM loans WHERE MemberID = ? AND BookID = ?")).thenReturn(ps);
+        when(ps.executeQuery()).thenReturn(rs);
+
+        when(rs.next()).thenReturn(true);
+
+        Date dueDate = Date.valueOf("2023-11-17");
+        Date returnDate = Date.valueOf("2023-11-18");
+
+        when(rs.getDate("DueDate")).thenReturn(dueDate);
+        when(rs.getDate("ReturnDate")).thenReturn(returnDate);
+
+        boolean result = loan.isLate(memberID,bookid);
+    //unkown why it returns false, possibly method wrong, kinda rushed it
+        assertTrue(result);
+
+    }
+
+    /**
+     * check card is valid
+     */
     @Test
     void isCreditCardValid() {
+        LoanDao loan = new LoanDao("librarytest");
+
+      String creditCard= "4532015112830366";
+      assertTrue(loan.isCreditCardValid(creditCard));
+
     }
 
+    /**
+     * check if card is invalid
+     */
     @Test
-    void payLateFeeValidate() {
+    void isCreditCardInValid() {
+        LoanDao loan = new LoanDao("librarytest");
+
+        String creditCard= "1234-5678-9012-3456";
+        String creditCard2= "4111111111111112";
+        assertFalse(loan.isCreditCardValid(creditCard));
+        assertFalse(loan.isCreditCardValid(creditCard2));
+
     }
 
+    /**
+     * paying fee works
+     */
     @Test
-    void addLateFeeToLoan() {
+    void payLateFeeValidateValid() {
+        LoanDao loan = new LoanDao("librarytest");
+
+        String creditNumber="4532015112830366";
+        String expiry="11/2024";
+
+        boolean result = loan.payLateFeeValidate(1,creditNumber,expiry);
+
+        assertTrue(result);
+
+    }
+
+    /**
+     * adds fee to the table
+     * @throws SQLException
+     */
+    @Test
+    void addLateFeeToLoan() throws SQLException {
+        int memberID = 1;
+        int bookID = 2;
+        LoanDao loan = new LoanDao("librarytest");
+
+        loan.addLateFeeToLoan(memberID,bookID);
+        List<loans> lones = loan.getLoansForMember(memberID);
+
+        double fee = lones.get(1).getLateFee();
+        assertEquals(10.0,fee);
+
     }
 
     /**
@@ -276,7 +387,28 @@ class LoanDaoTest {
         boolean expectedResult = false;
     }
 
+    /**
+     * check valid expiry date
+     */
     @Test
     void isValidExpiryDate() {
+        LoanDao loan = new LoanDao("librarytest");
+        String expiry = "03/2027";
+
+        assertTrue(loan.isValidExpiryDate(expiry));
+
+    }
+
+    /**
+     * check for invalid expiry
+     */
+    @Test
+    void NotValidExpiryDate() {
+        LoanDao loan = new LoanDao("librarytest");
+        String expiry = "03/2020";
+        //don't know how to check for month, cause will fail if enter say 21 for the month
+        assertFalse(loan.isValidExpiryDate(expiry));
+
+
     }
 }

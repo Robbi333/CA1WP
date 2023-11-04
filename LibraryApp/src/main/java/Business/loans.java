@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * @author leo
+ */
+
 public class loans implements Serializable {
     private int loanID;
     private int memberID;

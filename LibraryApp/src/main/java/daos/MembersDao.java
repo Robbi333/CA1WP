@@ -5,7 +5,9 @@ import Business.members;
 import exceptions.DaoException;
 import java.sql.*;
 
-
+/**
+ * @author roberts.
+ */
 public class MembersDao extends Dao {
 
     /**

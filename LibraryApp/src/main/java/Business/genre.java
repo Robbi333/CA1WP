@@ -1,5 +1,8 @@
 package Business;
 
+/**
+ * @author destiny.
+ */
 public class genre {
 
     private int genreid;
