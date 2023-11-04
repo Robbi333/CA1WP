@@ -46,7 +46,7 @@ public class BookDao extends Dao {
                 int publicationYear = rs.getInt("PublicationYear");
                 int genreID = rs.getInt("GenreID");
                 int totalCopies = rs.getInt("TotalCopies");
-                String description = rs.getString("Description");
+                String description = rs.getString("Description").trim();
 
                 book book = new book(bookID, title, authorID, ISBN, publicationYear, genreID, totalCopies, description);
                 books.add(book);

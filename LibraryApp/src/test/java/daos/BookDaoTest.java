@@ -18,7 +18,7 @@ public class BookDaoTest {
 
     /**
      * test of findallbooks method, og class bookdao
-     * data i am getting is exactly same as expected, but it still fails. but yea
+     *
      *
      * @throws SQLException
      */
@@ -27,7 +27,7 @@ public class BookDaoTest {
 
         book book1 = new book(1, "Harry Potter and the Philosopher's Stone", 1, 2147483647, 1997, 1, 1200000, "An 11-year-old orphan living with his unwelcoming aunt, uncle, and cousin, who learns of his own fame as a wizard known to have survived his parents' murder at the hands of the dark wizard Lord Voldemort as an infant when he is accepted to Hogwarts School");
         book book2 = new book(2, "Harry Potter and the Chamber of Secrets", 1, 123589026, 1998, 2, 770000, "Throughout the summer holidays after his first year at Hogwarts School of Witchcraft and Wizardry, Harry Potter has been receiving sinister warnings from a house-elf called Dobby. Now, back at school to start his second year, Harry hears unintelligible wh");
-        book book3 = new book(3, "Harry Potter and the Prisoner of Azkaban", 1, 830827838, 1999, 3, 650000, "Harry Potter & The Prisoner of Azkaban is about Harry's 3rd year at Hogwarts. Along with friends Ron and Hermione, Harry investigates the case of Sirius Black, an escaped prisoner from Azkaban, the wizard prison");
+        book book3 = new book(3, "Harry Potter and the Prisoner of Azkaban", 1, 830827838, 1999, 3, 650000, "Harry Potter & The Prisoner of Azkaban is about Harry's 3rd year at Hogwarts. Along with friends Ron and Hermione, Harry investigates the case of Sirius Black, an escaped prisoner from Azkaban, the wizard prison.");
         book book4 = new book(4, "Harry Potter and the Goblet of Fire", 1, 387086705, 2000, 4, 40000, "It follows Harry Potter, a wizard in his fourth year at Hogwarts School of Witchcraft and Wizardry, and the mystery surrounding the entry of Harry's name into the Triwizard Tournament, in which he is forced to compete. The book was published in the United");
         book book5 = new book(5, "Harry Potter and the Order of the Phoenix", 1, 691461178, 2003, 5, 660000, "Dark times have come to Hogwarts. After the Dementors' attack on his cousin Dudley, Harry Potter knows that Voldemort will stop at nothing to find him. There are many who deny the Dark Lord's return, but Harry is not alone: a secret order gathers at Grimm");
         book book6 = new book(6, "Charlie and the Chocolate Factory", 6, 927491739, 1964, 6, 2600000, "Charlie And The Chocolate Factory is a delightful children's book by Roald Dahl. It tells the story of a young boy named Charlie Bucket, who wins a golden ticket and gets the opportunity to tour the mysterious and magical chocolate factory owned by the ec");
@@ -64,8 +64,13 @@ public class BookDaoTest {
         BookDao bookDao = new BookDao("librarytest");
         List<book> result = bookDao.findAllBooks();
 
+        System.out.println("Expected Results:");
+        System.out.println(expectedResults);
+        System.out.println("Actual Results:");
+        System.out.println(result);
+
         //checks if created array list is expected
-        assertEquals(result,expectedResults);
+        assertArrayEquals(expectedResults.toArray(),result.toArray());
         System.out.println(result);
 
     }

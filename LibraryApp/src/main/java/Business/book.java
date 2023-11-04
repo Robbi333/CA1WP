@@ -80,7 +80,7 @@ public class book {
     }
 
     public String getDescription() {
-        return Description;
+        return this.Description;
     }
 
     public void setDescription(String description) {
