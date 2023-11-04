@@ -11,10 +11,21 @@ import java.util.List;
 
 public class BookDao extends Dao {
 
+    /**
+     * Constructs a new BookDao with the specified database name.
+     *
+     * @param databaseName The name of the database to be used by the BookDao.
+     */
     public BookDao(String databaseName) {
         super(databaseName);
     }
 
+    /**
+     * Retrieves a list of all books from the database
+     *
+     * @return A list of book objects containing info about all the books
+     * @throws DaoException if an error occurs in the database operation
+     */
     public List<book> findAllBooks() throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;

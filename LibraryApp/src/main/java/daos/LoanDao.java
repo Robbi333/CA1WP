@@ -17,6 +17,11 @@ public class LoanDao extends Dao {
     private int memberID;
     private int bookid;
 
+    /**
+     * Constructs a new BookDao with the specified database name.
+     *
+     * @param databaseName The name of the database to be used by the BookDao.
+     */
     public LoanDao(String databaseName) {
         super(databaseName);
     }

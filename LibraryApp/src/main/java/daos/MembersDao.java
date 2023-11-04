@@ -8,6 +8,11 @@ import java.sql.*;
 
 public class MembersDao extends Dao {
 
+    /**
+     * Constructs a new BookDao with the specified database name.
+     *
+     * @param databaseName The name of the database to be used by the BookDao.
+     */
     public MembersDao(String databaseName) {
         super(databaseName);
     }
