@@ -26,6 +26,19 @@ public class LoanDao extends Dao {
         super(databaseName);
     }
 
+
+
+    /**
+     * gets the list of all loans for member
+     *
+     * the method gets a list of loans from the database for the member
+     * if the return date is null then it is active
+     *
+     * @param memberID the id of the member to get the active loans for them
+     * @return a list of the active loans for the member
+     * @throws DaoException if error occurs while getting the active loans or connecting to
+     * the database.
+     */
     public List<loans> viewActiveLoans(int memberID) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -72,6 +85,16 @@ public class LoanDao extends Dao {
         return activeLoans;
     }
 
+    /**
+     * gets list of loans for member
+     *
+     * the method gets a list of the loans from the database that are
+     * linked to the members id
+     *
+     * @param memberId the id of the member
+     * @return a list of loans linked to the member
+     * @throws DaoException if error occurs while getting the loans or connecting to database.
+     */
     public List<loans> getLoansForMember(int memberId) throws DaoException{
         Connection con = null;
         PreparedStatement ps = null;
