@@ -19,6 +19,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         members isAuthenticated = null;
         boolean Auth = false;
+        Connection con = null;
 
         while (isAuthenticated == null) {
             System.out.print("Enter your username: ");
@@ -27,7 +28,11 @@ public class Main {
             String password = scanner.nextLine();
 
             // Fetch user details from the database using the username
-            isAuthenticated = MembersDao.authenticateMember(connection, username, password);
+            try {
+                isAuthenticated = MembersDao.authenticateMember(con, username, password);
+            }catch (DaoException e){
+                System.out.println("error");
+            }
 
             if (isAuthenticated != null) {
                 if (isAuthenticated.isAdmin()) {
