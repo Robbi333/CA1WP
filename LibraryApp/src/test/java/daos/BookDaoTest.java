@@ -1,6 +1,9 @@
 package daos;
 
 import Business.book;
+import exceptions.DaoException;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.testng.annotations.Test;
 
 import java.sql.Connection;
@@ -12,12 +15,25 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import org.mockito.Mockito;
+
 
 /**
  * @author leo.
  */
 public class BookDaoTest {
 
+
+
+    @InjectMocks
+    private BookDao bookDao;
+
+    @Mock
+    private Connection connection;
+    @Mock
+    private PreparedStatement preparedStatement;
+    @Mock
+    private ResultSet resultSet;
 
     /**
      * test of findallbooks method, og class bookdao
@@ -75,5 +91,47 @@ public class BookDaoTest {
         assertArrayEquals(expectedResults.toArray(),result.toArray());
         System.out.println(result);
 
+    }
+    @Test
+    public void testInsertBook() throws DaoException, SQLException {
+        // Create a sample book
+        book testBook = new book(5, "cool book", 5, 1234567890, 2022, 10, 5000,"Cool testbook");
+
+
+        // Mock the behavior of the connection and prepared statement
+        Mockito.when(bookDao.getConnection()).thenReturn(connection);
+        Mockito.when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
+        Mockito.when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful insertion
+
+        // Call the insertBook method
+        boolean result = bookDao.insertBook(testBook);
+
+        assertTrue(result);
+
+        // Verify that the methods were called
+        Mockito.verify(bookDao).getConnection();
+        Mockito.verify(connection).prepareStatement(Mockito.anyString());
+        Mockito.verify(preparedStatement).executeUpdate();
+    }
+
+    @Test
+    public void testUpdateBookCopies() throws DaoException, SQLException {
+        int bookID = 1;
+        int changeAmount = 5;
+
+        // Mock the behavior of the connection and prepared statement
+        Mockito.when(bookDao.getConnection()).thenReturn(connection);
+        Mockito.when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
+        Mockito.when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful update
+
+        // Call the updateBookCopies method
+        boolean result = bookDao.updateBookCopies(bookID, changeAmount);
+
+        assertTrue(result);
+
+        // Verify that the methods were called
+        Mockito.verify(bookDao).getConnection();
+        Mockito.verify(connection).prepareStatement(Mockito.anyString());
+        Mockito.verify(preparedStatement).executeUpdate();
     }
 }
