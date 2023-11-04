@@ -2,6 +2,7 @@ package Business;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class loans implements Serializable {
     private int loanID;
@@ -78,4 +79,16 @@ public class loans implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        loans loans = (loans) o;
+        return loanID == loans.loanID && memberID == loans.memberID && bookID == loans.bookID && Double.compare(lateFee, loans.lateFee) == 0 && Objects.equals(loanDate, loans.loanDate) && Objects.equals(dueDate, loans.dueDate) && Objects.equals(returnDate, loans.returnDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(loanID, memberID, bookID, loanDate, dueDate, returnDate, lateFee);
+    }
 }

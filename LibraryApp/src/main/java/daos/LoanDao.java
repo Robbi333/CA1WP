@@ -321,7 +321,7 @@ public class LoanDao extends Dao {
             if (rows > 0) {
                 //fee added
             } else {
-                //problem adding fee
+                System.out.println("Problem occured when adding fee");
             }
         } catch (SQLException e) {
             // Handle SQL-related exceptions here, log them, or throw an exception

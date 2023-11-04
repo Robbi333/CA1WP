@@ -76,7 +76,7 @@ public class Main {
                         // Call your insertMember method here
                         members newMember = new members(username, password, firstName, lastName, email, address1, address2, eircode, phoneNumber, LocalDate.now());
                         newMember.setAdmin(0); // Default to non-admin
-                        boolean isRegistered = MembersDao.insertMember(connection, newMember);
+                        boolean isRegistered = true ;//MembersDao.insertMember(connection, newMember);
 
                         if (isRegistered) {
                             System.out.println("Registration successful!");

@@ -19,7 +19,6 @@ public class BookDaoTest {
     /**
      * test of findallbooks method, og class bookdao
      *
-     *
      * @throws SQLException
      */
     @Test
