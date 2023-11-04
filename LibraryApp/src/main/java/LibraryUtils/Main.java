@@ -56,7 +56,8 @@ public class Main {
                 System.out.println("5. View past loans");
                 System.out.println("6. Borrow a book");
                 System.out.println("7. Return a book");
-                System.out.println("8. View late fees");                System.out.println("9. Pay late fee");
+                System.out.println("8. View late fees");
+                System.out.println("9. Pay late fee");
                 System.out.println("10. Logout");
 
                 if (isAuthenticated.isAdmin()) {
@@ -104,7 +105,11 @@ public class Main {
                         members newMember = new members(username, password, firstName, lastName, email, address1, address2, eircode, phoneNumber, LocalDate.now());
                         newMember.setAdmin(0); // Default to non-admin
                         boolean isRegistered = true ;
-                        mbersDao.insertMember(connection, newMember);
+                        try {
+                            MembersDao.insertMember(con, newMember);
+                        } catch (DaoException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         if (isRegistered) {
                             System.out.println("Registration successful!");
