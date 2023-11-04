@@ -17,12 +17,12 @@ public class members {
     private String Eircode;
     private String Phone_Number;
     private LocalDate Registration_Date;
-    private int Admin;
+    private Integer Admin;
 
 
     // Constructors, getters, and setters
     public members() {
-
+        Admin = null;
     }
 
     public members(String username, String password, String first_Name,
@@ -128,16 +128,15 @@ public class members {
         Registration_Date = registration_Date;
     }
 
-    public boolean isAdmin(){
-
-        return Admin == 1;
+    public boolean isAdmin() {
+        return Admin != null && Admin == 1;
     }
 
-    public int getAdmin() {
+    public Integer getAdmin() {
         return Admin;
     }
 
-    public void setAdmin(int admin) {
+    public void setAdmin(Integer admin) {
         Admin = admin;
     }
 

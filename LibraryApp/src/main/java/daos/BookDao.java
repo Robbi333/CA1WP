@@ -74,6 +74,13 @@ public class BookDao extends Dao {
         return books;
     }
 
+    /**
+     * Inserts a new book into the library's database.
+     *
+     * @param book The book object to be inserted.
+     * @return True if the insertion was successful, false otherwise.
+     * @throws DaoException If an error occurs during the database operation.
+     */
     public boolean insertBook(book book) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -115,6 +122,14 @@ public class BookDao extends Dao {
         }
     }
 
+    /**
+     * Updates the total number of copies for a book with the specified BookID.
+     *
+     * @param bookID       The unique identifier of the book to update.
+     * @param changeAmount The amount to change the total copies by. Positive values add copies, negative values remove copies.
+     * @return True if the update was successful, false otherwise.
+     * @throws DaoException If an error occurs during the database operation.
+     */
     public boolean updateBookCopies(int bookID, int changeAmount) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;

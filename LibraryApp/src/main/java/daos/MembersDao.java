@@ -10,15 +10,19 @@ import java.sql.*;
  */
 public class MembersDao extends Dao {
 
-    /**
-     * Constructs a new BookDao with the specified database name.
-     *
-     * @param databaseName The name of the database to be used by the BookDao.
-     */
+
     public MembersDao(String databaseName) {
         super(databaseName);
     }
 
+    /**
+     * Inserts a new member into the database with the provided information.
+     *
+     * @param con    A valid database connection.
+     * @param member The member object containing user information to be inserted.
+     * @return True if the insertion was successful, false otherwise.
+     * @throws DaoException If an error occurs during the database operation.
+     */
     public static boolean insertMember(Connection con, members member) throws DaoException {
         PreparedStatement ps = null;
         ResultSet rs = null;
