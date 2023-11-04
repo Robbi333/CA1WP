@@ -128,7 +128,21 @@ public class LoanDao extends Dao {
         return loans;
     }
 
+    /**
+     * Making a borrow books array list
+     */
     private List<Integer> borrowedBooks = new ArrayList<>();
+
+    /**
+     *
+     * borrowing a certain book
+     *
+     * @param memberID member id is the member that is being borrrowing the book
+     * @param bookid the id of the book is being borrowed
+     * @return it is true if the book was successfully borrowed and false otherwise
+     * @throws DaoException if there is any error during the borrowing process
+     */
+
     public boolean BorrowBook(int memberID, int bookid) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;
@@ -166,7 +180,15 @@ public class LoanDao extends Dao {
         }
     }
 
-
+    /**
+     *
+     * adds to see if you can check if the book needs to be borrowed
+     *
+     * @param memberID the id of the member
+     * @param bookid the id of thew book to be checking if it is being borrowed
+     * @return true if the book can be borrowed false otherwise
+     * @throws DaoException if there is an error during the check
+     */
    public boolean canBorrowBook(int memberID, int bookid) throws DaoException {
        this.memberID = memberID;
        this.bookid = bookid;
@@ -179,6 +201,15 @@ public class LoanDao extends Dao {
         }
         return false;
     }
+    /**
+     *
+     * adds the returning of a book
+     *
+     * @param memberID The ID of the member returning the book
+     * @param bookid the results of the id of the book is being returned
+     * @return it is true if the book successfully returned false otherwise
+     * @throws DaoException if there is an error during the returning process
+     */
    public boolean returnbook(int memberID, int bookid) throws DaoException {
        Connection con = null;
        PreparedStatement ps = null;
@@ -307,8 +338,14 @@ public class LoanDao extends Dao {
     }
 
 
-
-
+    /**
+     *
+     * to check if a book with the bookid that is given is being borrowed by a member already
+     *
+     * @param memberID the id of the member is to check for the book borrorwed
+     * @param bookid the id of the book to be checked for the borrowing progress
+     * @return true if the book has already been borrowed by the member false otherwise
+     */
     private boolean bookAlreadyBorrowed(int memberID,int bookid) {
 
 
