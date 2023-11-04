@@ -1,7 +1,9 @@
 package LibraryUtils;
 
 import Business.members;
+import daos.LoanDao;
 import daos.MembersDao;
+import exceptions.DaoException;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -106,6 +108,21 @@ public class Main {
                     break;
                 case 6:
                     //loan book
+                    int member = 1;
+                    int bookID = 1;
+
+                    try {
+                        LoanDao library = new LoanDao("library");
+                        boolean isBorrowed = library.BorrowBook(member, bookID);
+                        if (isBorrowed) {
+                            System.out.println("Book successfully borrowed!");
+                        } else {
+                            System.out.println("Filed to borrow the book");
+                        }
+
+                    } catch (DaoException e) {
+                        System.out.println("An error Ocurred"+ e.getMessage());
+                    }
                     break;
                 case 7:
                     // return book
