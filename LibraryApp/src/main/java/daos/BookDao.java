@@ -39,8 +39,8 @@ public class BookDao extends Dao {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int bookID = rs.getInt("BookID");
-                String title = rs.getString("Title");
+                int bookID = rs.getInt("Bookid");
+                String title = rs.getString("Title").trim();
                 int authorID = rs.getInt("AuthorID");
                 int ISBN = rs.getInt("ISBN");
                 int publicationYear = rs.getInt("PublicationYear");
@@ -89,7 +89,7 @@ public class BookDao extends Dao {
             ps.setInt(4, book.getPublicationYear());
             ps.setInt(5, book.getGenreID());
             ps.setInt(6, book.getTotalCopies());
-            ps.setString(7, book.getDescripition());
+            ps.setString(7, book.getDescription());
 
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;

@@ -18,6 +18,7 @@ public class BookDaoTest {
 
     /**
      * test of findallbooks method, og class bookdao
+     * data i am getting is exactly same as expected, but it still fails. but yea
      *
      * @throws SQLException
      */
@@ -51,20 +52,20 @@ public class BookDaoTest {
         when(rs.next()).thenReturn(true,true,true,true,true,true,false);
 
         //fill result set
-        when(rs.getInt("BookID")).thenReturn(book1.getBookid(), book2.getBookid(), book3.getBookid(), book4.getBookid(), book5.getBookid(), book6.getBookid());
+        when(rs.getInt("Bookid")).thenReturn(book1.getBookid(), book2.getBookid(), book3.getBookid(), book4.getBookid(), book5.getBookid(), book6.getBookid());
         when(rs.getString("Title")).thenReturn(book1.getTitle(), book2.getTitle(), book3.getTitle(), book4.getTitle(), book5.getTitle(), book6.getTitle());
         when(rs.getInt("AuthorID")).thenReturn(book1.getAuthorID(), book2.getAuthorID(), book3.getAuthorID(), book4.getAuthorID(), book5.getAuthorID(), book6.getAuthorID());
         when(rs.getInt("ISBN")).thenReturn(book1.getISBN(), book2.getISBN(), book3.getISBN(), book4.getISBN(), book5.getISBN(), book6.getISBN());
         when(rs.getInt("PublicationYear")).thenReturn(book1.getPublicationYear(), book2.getPublicationYear(), book3.getPublicationYear(), book4.getPublicationYear(), book5.getPublicationYear(), book6.getPublicationYear());
         when(rs.getInt("GenreID")).thenReturn(book1.getGenreID(), book2.getGenreID(), book3.getGenreID(), book4.getGenreID(), book5.getGenreID(), book6.getGenreID());
         when(rs.getInt("TotalCopies")).thenReturn(book1.getTotalCopies(), book2.getTotalCopies(), book3.getTotalCopies(), book4.getTotalCopies(), book5.getTotalCopies(), book6.getTotalCopies());
-        when(rs.getString("Description")).thenReturn(book1.getDescripition(), book2.getDescripition(), book3.getDescripition(), book4.getDescripition(), book5.getDescripition(), book6.getDescripition());
+        when(rs.getString("Description")).thenReturn(book1.getDescription(), book2.getDescription(), book3.getDescription(), book4.getDescription(), book5.getDescription(), book6.getDescription());
 
         BookDao bookDao = new BookDao("librarytest");
         List<book> result = bookDao.findAllBooks();
 
         //checks if created array list is expected
-        assertEquals(expectedResults,result);
+        assertEquals(result,expectedResults);
         System.out.println(result);
 
     }

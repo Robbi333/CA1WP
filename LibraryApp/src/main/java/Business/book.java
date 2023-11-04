@@ -1,5 +1,7 @@
 package Business;
 
+import java.util.Objects;
+
 public class book {
     private int Bookid;
     private String Title;
@@ -8,9 +10,9 @@ public class book {
     private int PublicationYear;
     private int GenreID;
     private int TotalCopies;
-    private String Descripition;
+    private String Description;
 
-    public book(int bookid, String title, int authorID, int ISBN, int publicationYear, int genreID, int totalCopies, String descripition) {
+    public book(int bookid, String title, int authorID, int ISBN, int publicationYear, int genreID, int totalCopies, String description) {
         Bookid = bookid;
         Title = title;
         AuthorID = authorID;
@@ -18,7 +20,7 @@ public class book {
         PublicationYear = publicationYear;
         GenreID = genreID;
         TotalCopies = totalCopies;
-        Descripition = descripition;
+        Description = description;
     }
 
     public int getBookid() {
@@ -77,12 +79,12 @@ public class book {
         TotalCopies = totalCopies;
     }
 
-    public String getDescripition() {
-        return Descripition;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setDescripition(String descripition) {
-        Descripition = descripition;
+    public void setDescription(String description) {
+        Description = description;
     }
 
     @Override
@@ -95,7 +97,20 @@ public class book {
                 ", PublicationYear=" + PublicationYear +
                 ", GenreID=" + GenreID +
                 ", TotalCopies=" + TotalCopies +
-                ", Descripition='" + Descripition + '\'' +
+                ", Description='" + Description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        book book = (book) o;
+        return Bookid == book.Bookid && AuthorID == book.AuthorID && ISBN == book.ISBN && PublicationYear == book.PublicationYear && GenreID == book.GenreID && TotalCopies == book.TotalCopies && Objects.equals(Title, book.Title) && Objects.equals(Description, book.Description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Bookid, Title, AuthorID, ISBN, PublicationYear, GenreID, TotalCopies, Description);
     }
 }
