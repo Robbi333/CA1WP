@@ -1,7 +1,7 @@
 package daos;
 
 import Business.book;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
