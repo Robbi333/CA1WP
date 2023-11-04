@@ -99,9 +99,9 @@ public class BookDaoTest {
 
 
         // Mock the behavior of the connection and prepared statement
-        Mockito.when(bookDao.getConnection()).thenReturn(connection);
-        Mockito.when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
-        Mockito.when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful insertion
+        when(bookDao.getConnection()).thenReturn(connection);
+        when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
+        when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful insertion
 
         // Call the insertBook method
         boolean result = bookDao.insertBook(testBook);
@@ -109,9 +109,9 @@ public class BookDaoTest {
         assertTrue(result);
 
         // Verify that the methods were called
-        Mockito.verify(bookDao).getConnection();
-        Mockito.verify(connection).prepareStatement(Mockito.anyString());
-        Mockito.verify(preparedStatement).executeUpdate();
+        verify(bookDao).getConnection();
+        verify(connection).prepareStatement(Mockito.anyString());
+        verify(preparedStatement).executeUpdate();
     }
 
     @Test
@@ -120,9 +120,9 @@ public class BookDaoTest {
         int changeAmount = 5;
 
         // Mock the behavior of the connection and prepared statement
-        Mockito.when(bookDao.getConnection()).thenReturn(connection);
-        Mockito.when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
-        Mockito.when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful update
+        when(bookDao.getConnection()).thenReturn(connection);
+        when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
+        when(preparedStatement.executeUpdate()).thenReturn(1); // Simulate a successful update
 
         // Call the updateBookCopies method
         boolean result = bookDao.updateBookCopies(bookID, changeAmount);
@@ -130,8 +130,8 @@ public class BookDaoTest {
         assertTrue(result);
 
         // Verify that the methods were called
-        Mockito.verify(bookDao).getConnection();
-        Mockito.verify(connection).prepareStatement(Mockito.anyString());
-        Mockito.verify(preparedStatement).executeUpdate();
+        verify(bookDao).getConnection();
+        verify(connection).prepareStatement(Mockito.anyString());
+        verify(preparedStatement).executeUpdate();
     }
 }
