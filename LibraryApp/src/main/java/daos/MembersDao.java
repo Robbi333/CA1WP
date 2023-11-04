@@ -110,4 +110,33 @@ public class MembersDao extends Dao {
         return null; // User not found
     }
 
+    public boolean updateAdminStatus(int memberID, int adminStatus) throws DaoException {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConnection();
+
+            String updateQuery = "UPDATE members SET Admin = ? WHERE MemberID = ?";
+            ps = con.prepareStatement(updateQuery);
+            ps.setInt(1, adminStatus);
+            ps.setInt(2, memberID);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Error updating Admin status: " + e.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
+        }
+    }
 }

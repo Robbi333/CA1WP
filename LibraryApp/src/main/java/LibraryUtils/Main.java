@@ -251,13 +251,57 @@ public class Main {
                     System.exit(0);
                     break;
                     case 11:
-                    if (isAuthenticated.isAdmin()) {
-                        // add a book
-                    }else{
-                        //update book count
-                    }//
-                       //disable member
-                  //  }
+                    if (isAuthenticated != null && isAuthenticated.isAdmin()) {
+                        // Admin-specific functionality - Add a book
+                        System.out.println("Admin: You can add a book here.");
+                        // Example: addBook(); // Implement your addBook logic here
+                    } else {
+                        // Non-admin functionality - Update book count or disable member
+                        System.out.println("Non-Admin: You can update book count or disable a member here.");
+                        System.out.print("Choose an action (1: Update book count, 2: Disable member): ");
+                        int action = scanner.nextInt();
+
+                        switch (action) {
+                            case 1:
+                                // Implement update book count logic
+                                System.out.println("You chose to update book count.");
+                                bookID = 0;
+                                int changeAmount = 0;
+                                try {
+                                    BookDao bookDao = new BookDao("libraryapp");
+                                    boolean updated = bookDao.updateBookCopies(bookID, changeAmount);
+                                    if (updated) {
+                                        System.out.println("Book count updated successfully.");
+                                    } else {
+                                        System.out.println("Failed to update book count.");
+                                    }
+                                } catch (DaoException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                                break;
+
+                            case 2:
+                                // Implement disable member logic
+                                System.out.println("You chose to disable a member.");
+                                 memberID = 0;
+                                try {
+                                    MembersDao membersDao = new MembersDao("libraryapp");
+
+                                    boolean updated = membersDao.updateAdminStatus(memberID, 2);
+                                    if (updated) {
+                                        System.out.println("Member disabled successfully.");
+                                    } else {
+                                        System.out.println("Failed to disable member.");
+                                    }
+                                } catch (DaoException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                                break;
+
+                            default:
+                                System.out.println("Invalid choice.");
+                        }
+                    }
                     break;
 
                 case 0:
