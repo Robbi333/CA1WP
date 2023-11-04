@@ -23,7 +23,8 @@ public class MembersDao extends Dao {
      * @return True if the insertion was successful, false otherwise.
      * @throws DaoException If an error occurs during the database operation.
      */
-    public static boolean insertMember(Connection con, members member) throws DaoException {
+    public static boolean insertMember(members member) throws DaoException {
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -64,7 +65,8 @@ public class MembersDao extends Dao {
         }
     }
 
-    public static members authenticateMember(Connection con, String username, String password) throws DaoException {
+    public static members authenticateMember(String username, String password) throws DaoException {
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 

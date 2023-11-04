@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
         when(ps.executeUpdate()).thenReturn(1);
 
         MembersDao membersDao = new MembersDao("testLibraryApp");
-        boolean result = MembersDao.insertMember(dbConn, testMember);
+        boolean result = MembersDao.insertMember(testMember);
 
         assertTrue(result);
     }

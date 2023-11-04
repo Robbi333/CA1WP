@@ -29,7 +29,7 @@ public class Main {
 
             // Fetch user details from the database using the username
             try {
-                isAuthenticated = MembersDao.authenticateMember(con, username, password);
+                isAuthenticated = MembersDao.authenticateMember(username, password);
             }catch (DaoException e){
                 System.out.println("error");
             }
@@ -106,7 +106,7 @@ public class Main {
                         newMember.setAdmin(0); // Default to non-admin
                         boolean isRegistered = true ;
                         try {
-                            MembersDao.insertMember(con, newMember);
+                            MembersDao.insertMember(newMember);
                         } catch (DaoException e) {
                             throw new RuntimeException(e);
                         }
