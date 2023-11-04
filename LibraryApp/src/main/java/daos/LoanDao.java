@@ -161,22 +161,22 @@ public class LoanDao extends Dao {
                 if (rows > 0) {
                     borrowedBooks.add(bookid);
                     return true;
-
                 }
-                }
+            }
 
-            return false;
         } catch (SQLException e) {
-            throw new DaoException("There is an Error Borrowing a Book:" + e.getMessage());
+            System.out.println("error borrowing from book");
         } finally {
             try {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
 
             } catch (SQLException e) {
+                System.out.println("handiling exceptions");
 
             }
         }
+        return false;
     }
 
     /**

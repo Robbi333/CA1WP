@@ -17,6 +17,9 @@ class LoanDaoTest {
 
     //my database is the same as the infromation i dont know my error but i attempted it :(
     @Test
+    /**
+     * Test case to verify the success of borrowing a book
+     */
     void BorrowBook() throws DaoException {
 
         LoanDao library = new LoanDao("librarytest");
@@ -27,9 +30,14 @@ class LoanDaoTest {
 
         boolean expectedResult = true;
 
+
         assertEquals(expectedResult, result);
     }
-    //my database is the same as the infromation i dont know my error but i attempted it :(
+
+    /**
+     * test case to verify its failure of borrrowing a book
+     * @throws DaoException if there is an issue with the data access
+     */
     @Test
     void testBorrowBook_Failed() throws DaoException {
         LoanDao library = new LoanDao("librarytest");
@@ -45,7 +53,10 @@ class LoanDaoTest {
 
     }
 
-
+    /**
+     * test the case to check if the book can be borrowed
+     * @throws DaoException if there is an issue with the data access
+     */
     @Test
     void canBorrowBook() throws DaoException {
 
@@ -63,6 +74,11 @@ class LoanDaoTest {
         assertEquals(expectedResult, result);
 
     }
+
+    /**
+     * test to see if the book is already borrowed
+     * @throws DaoException if there is an issue with the data access
+     */
     @Test
     void BookalreadyBorrowed() throws DaoException {
         LoanDao library = new LoanDao("librarytest");
@@ -78,6 +94,10 @@ class LoanDaoTest {
 
     }
 
+    /**
+     * to test if you can return a book
+     * @throws DaoException if there is an issue with the data access
+     */
     @Test
     void returnbook() throws DaoException {
         LoanDao library = new LoanDao("librarytest");
@@ -106,6 +126,9 @@ class LoanDaoTest {
     void addLateFeeToLoan() {
     }
 
+    /**
+     * To test the case to check if a book is already borrowed by a member
+     */
     @Test
     void bookAlreadyBorrowed() {
         LoanDao library = new LoanDao("librarytest");
@@ -117,6 +140,10 @@ class LoanDaoTest {
 
         boolean expectedResult = true;
     }
+
+    /**
+     * To test the case to check if a book is not borrowed by a member
+     */
     @Test
     void bookAlreadyBorrowed_notBorrowed() {
         LoanDao library = new LoanDao("librarytest");
