@@ -63,4 +63,51 @@ public class MembersDao extends Dao {
             }
         }
     }
+
+    public static members authenticateMember(Connection con, String username, String password) throws DaoException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT * FROM members WHERE Username = ? AND Password = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // User found, create a members object with the details
+                members authenticatedMember = new members();
+                authenticatedMember.setMemberID(rs.getInt("MemberID"));
+                authenticatedMember.setUsername(rs.getString("Username"));
+                authenticatedMember.setPassword(rs.getString("Password"));
+                authenticatedMember.setFirst_Name(rs.getString("First_Name"));
+                authenticatedMember.setLast_Name(rs.getString("Last_Name"));
+                authenticatedMember.setEmail(rs.getString("Email"));
+                authenticatedMember.setAddress1(rs.getString("Address1"));
+                authenticatedMember.setAddress2(rs.getString("Address2"));
+                authenticatedMember.setEircode(rs.getString("Eircode"));
+                authenticatedMember.setPhone_Number(rs.getString("Phone_Number"));
+                authenticatedMember.setRegistration_Date(rs.getDate("Registration_Date").toLocalDate());
+                authenticatedMember.setAdmin(rs.getInt("Admin"));
+
+                return authenticatedMember;
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Error authenticating member: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
+        }
+        return null; // User not found
+    }
+
 }

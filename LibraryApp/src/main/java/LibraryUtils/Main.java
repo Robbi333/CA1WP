@@ -17,15 +17,33 @@ public class Main {
         System.out.println();
 
         Scanner scanner = new Scanner(System.in);
-        String userType;
-        boolean isAuthenticated = false;
-        do {
-            System.out.print("Enter your user type (member/admin): ");
-            userType = scanner.nextLine().toLowerCase();
-        } while (!userType.equals("member") && !userType.equals("admin"));
+        members isAuthenticated = null;
+        boolean Auth = false;
+
+        while (isAuthenticated == null) {
+            System.out.print("Enter your username: ");
+            String username = scanner.nextLine();
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+
+            // Fetch user details from the database using the username
+            isAuthenticated = MembersDao.authenticateMember(connection, username, password);
+
+            if (isAuthenticated != null) {
+                if (isAuthenticated.isAdmin()) {
+                    Auth = true;
+                    System.out.println("Admin authenticated.");
+                } else {
+                    Auth = true;
+                    System.out.println("Member authenticated.");
+                }
+            } else {
+                System.out.println("Authentication failed. Please try again.");
+            }
+        }
 
         while (true) {
-            if (isAuthenticated) {
+            if (Auth = true) {
                 // Display options for authenticated users
                 System.out.println("Select an option:");
                 System.out.println("3. View all books");
@@ -33,11 +51,10 @@ public class Main {
                 System.out.println("5. View past loans");
                 System.out.println("6. Borrow a book");
                 System.out.println("7. Return a book");
-                System.out.println("8. View late fees");
-                System.out.println("9. Pay late fee");
+                System.out.println("8. View late fees");                System.out.println("9. Pay late fee");
                 System.out.println("10. Logout");
 
-                if (userType.equals("admin")) {
+                if (isAuthenticated.isAdmin()) {
                     System.out.println("11. Add a book");
                     System.out.println("12. Update book stock");
                     System.out.println("13. Disable member");
@@ -56,7 +73,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    if (!isAuthenticated) {
+                    if (!Auth) {
                         System.out.println("Registration:");
                         System.out.print("Enter your username: ");
                         String username = scanner.nextLine();
@@ -85,7 +102,7 @@ public class Main {
 
                         if (isRegistered) {
                             System.out.println("Registration successful!");
-                            isAuthenticated = true;
+                            Auth = true;
                         } else {
                            System.out.println("Registration failed. Please try again.");
                         }
@@ -96,7 +113,7 @@ public class Main {
                 case 2:
                    //login
                    // call the login and then set isAuthenticated to true
-                    isAuthenticated = true;
+                    Auth= true;
                     break;
                 case 3:
                     //view all books
@@ -223,7 +240,7 @@ public class Main {
                     System.exit(0);
                     break;
                     case 11:
-                    if (userType.equals("admin")) {
+                    if (isAuthenticated.isAdmin()) {
                         // add a book
                     }else{
                         //update book count
