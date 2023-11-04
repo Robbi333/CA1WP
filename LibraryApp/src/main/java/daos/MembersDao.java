@@ -18,13 +18,13 @@ public class MembersDao extends Dao {
     /**
      * Inserts a new member into the database with the provided information.
      *
-     * @param con    A valid database connection.
      * @param member The member object containing user information to be inserted.
      * @return True if the insertion was successful, false otherwise.
      * @throws DaoException If an error occurs during the database operation.
      */
     public static boolean insertMember(members member) throws DaoException {
         Connection con = null;
+        con = getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -67,6 +67,7 @@ public class MembersDao extends Dao {
 
     public static members authenticateMember(String username, String password) throws DaoException {
         Connection con = null;
+        con = getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -114,6 +115,7 @@ public class MembersDao extends Dao {
 
     public boolean updateAdminStatus(int memberID, int adminStatus) throws DaoException {
         Connection con = null;
+        con = getConnection();
         PreparedStatement ps = null;
 
         try {

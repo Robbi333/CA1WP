@@ -53,7 +53,7 @@ public class MainRegistration {
         try (Connection connection = daos.Dao.getConnection()) {
             if (connection != null) {
                 // Insert the member into the database
-                boolean registrationSuccessful = daos.MembersDao.insertMember(connection, member);
+                boolean registrationSuccessful = daos.MembersDao.insertMember(member);
 
                 if (registrationSuccessful) {
                     System.out.println("Registration successful!");
