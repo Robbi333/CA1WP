@@ -10,5 +10,9 @@ class BookDaoTest {
     @Test
     public void testFindAllBooks(){
 
+        BookDao bookDao = mock(BookDao.class);
+
+
+
     }
 }

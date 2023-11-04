@@ -17,6 +17,10 @@ public class LoanDao extends Dao {
     private int memberID;
     private int bookid;
 
+    public LoanDao(String databaseName) {
+        super(databaseName);
+    }
+
     public List<loans> viewActiveLoans(int memberID) throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;

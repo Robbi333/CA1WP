@@ -11,6 +11,10 @@ import java.util.List;
 
 public class BookDao extends Dao {
 
+    public BookDao(String databaseName) {
+        super(databaseName);
+    }
+
     public List<book> findAllBooks() throws DaoException {
         Connection con = null;
         PreparedStatement ps = null;

@@ -8,6 +8,10 @@ import java.sql.*;
 
 public class MembersDao extends Dao {
 
+    public MembersDao(String databaseName) {
+        super(databaseName);
+    }
+
     public static boolean insertMember(Connection con, members member) throws DaoException {
         PreparedStatement ps = null;
         ResultSet rs = null;

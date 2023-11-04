@@ -8,6 +8,12 @@ import java.sql.SQLException;
 
 public class Dao {
 
+    private String databaseName;
+    public Dao(String databaseName){
+        this.databaseName = databaseName;
+    }
+
+
     public static Connection getConnection() throws DaoException {
 
         String driver = "com.mysql.cj.jdbc.Driver";
