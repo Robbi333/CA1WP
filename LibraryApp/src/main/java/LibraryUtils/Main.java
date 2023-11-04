@@ -113,7 +113,7 @@ public class Main {
                     System.out.println("Enter your Member ID");
                     int memberID = scanner.nextInt();
 
-                    System.out.println("Enter the Book ID you want to borrow");
+                    System.out.println("Enter the Book ID you want to borrow homie");
                     int bookID = scanner.nextInt();
 
                     try {
@@ -133,6 +133,30 @@ public class Main {
                     break;
                 case 7:
                     // return book
+                    System.out.println("Welcome to The Return Page Library");
+
+                    System.out.println("Enter your Member ID:");
+                    memberID = scanner.nextInt();
+
+                    System.out.println("Enter your book ID amigio");
+                    bookID = scanner.nextInt();
+
+                    LoanDao library = new LoanDao("library");
+                    try {
+                        boolean isReturn = library.returnbook(memberID, bookID);
+
+                        if (isReturn) {
+                            System.out.println("Book was successfully returned");
+                        } else {
+                            System.out.println("Failed to return the book it has might be borrowed or late");
+                        }
+                    } catch (DaoException e) {
+                        System.out.println("An error have been occurred:" + e.getMessage());
+                    } finally {
+                        scanner.close();
+                    }
+
+
                     break;
                 case 8:
                     //view late views
