@@ -131,7 +131,7 @@ public class LoanDao extends Dao {
     /**
      * Making a borrow books array list
      */
-    private List<Integer> borrowedBooks = new ArrayList<>();
+    public List<Integer> borrowedBooks = new ArrayList<>();
 
     /**
      *
@@ -312,7 +312,7 @@ public class LoanDao extends Dao {
      * @param bookid id of the book linked with the loan
      * @throws RuntimeException if an error occurs when adding late fee or database connection
      */
-    private void addLateFeeToLoan(int memberID, int bookid) {
+    public void addLateFeeToLoan(int memberID, int bookid) {
         Connection con = null;
         PreparedStatement ps = null;
 
@@ -346,7 +346,7 @@ public class LoanDao extends Dao {
      * @param bookid the id of the book to be checked for the borrowing progress
      * @return true if the book has already been borrowed by the member false otherwise
      */
-    private boolean bookAlreadyBorrowed(int memberID,int bookid) {
+    public boolean bookAlreadyBorrowed(int memberID,int bookid) {
 
 
         return borrowedBooks.contains(bookid);
@@ -399,7 +399,7 @@ public class LoanDao extends Dao {
      * @param expiryDate
      * @return
      */
-    private static boolean isValidExpiryDate(String expiryDate) {
+    public static boolean isValidExpiryDate(String expiryDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
             Date currentDate = new Date();

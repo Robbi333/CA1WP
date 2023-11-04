@@ -37,4 +37,16 @@ class LoanDaoTest {
     @Test
     void payLateFeeValidate() {
     }
+
+    @Test
+    void addLateFeeToLoan() {
+    }
+
+    @Test
+    void bookAlreadyBorrowed() {
+    }
+
+    @Test
+    void isValidExpiryDate() {
+    }
 }
