@@ -65,7 +65,7 @@ class LoanDaoTest {
     void BookalreadyBorrowed() throws DaoException {
         LoanDao library = new LoanDao("librarytest");
         int memberID = 5;
-        int bookid = 50;
+        int bookid = 5;
 
 
         boolean result = library.canBorrowBook(memberID, bookid);
