@@ -70,8 +70,48 @@ public class BookDao extends Dao {
         }
         return books;
     }
-}
 
+    public boolean insertBook(book book) throws DaoException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = this.getConnection();
+
+            String insertQuery = "INSERT INTO book (Title, AuthorID, ISBN, PublicationYear, GenreID, TotalCopies, Description) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            ps = con.prepareStatement(insertQuery);
+            ps.setString(1, book.getTitle());
+            ps.setInt(2, book.getAuthorID());
+            ps.setInt(3, book.getISBN());
+            ps.setInt(4, book.getPublicationYear());
+            ps.setInt(5, book.getGenreID());
+            ps.setInt(6, book.getTotalCopies());
+            ps.setString(7, book.getDescripition());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Error inserting book: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
+        }
+    }
+}
 
 
 
