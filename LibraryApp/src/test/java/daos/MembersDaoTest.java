@@ -33,5 +33,6 @@ import static org.mockito.Mockito.*;
 
         assertEquals(true, result);
     }
+
     }
-}
+
