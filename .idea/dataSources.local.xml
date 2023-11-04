@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< Updated upstream
-  <component name="dataSourceStorageLocal" created-in="IU-223.8617.56">
-    <data-source name="libraryapp@localhost" uuid="372a84eb-bab7-405a-9921-f3fb6e779eea">
-      <database-info product="MySQL" version="5.5.5-10.4.27-MariaDB" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MARIADB" exact-version="10.4.27" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-=======
   <component name="dataSourceStorageLocal" created-in="IU-232.10203.10">
-    <data-source name="@localhost" uuid="25bcdba6-9edc-44d8-a7cb-566282baf22d">
-      <database-info product="MySQL" version="5.5.5-10.4.28-MariaDB" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MARIADB" exact-version="10.4.28" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
->>>>>>> Stashed changes
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema">
-<<<<<<< Updated upstream
-            <name qname="@" />
-=======
->>>>>>> Stashed changes
-            <name qname="libraryapp" />
-            <name qname="librarytest" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
+    <data-source name="libraryapp@localhost" uuid="372a84eb-bab7-405a-9921-f3fb6e779eea">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>

@@ -9,11 +9,23 @@ import java.sql.SQLException;
 public class Dao {
 
     private String databaseName;
+
+    /**
+     * creates a new Dao instance with the passed database name.
+     *
+     * @param databaseName the name of the database linked with this Dao instance.
+     */
     public Dao(String databaseName){
         this.databaseName = databaseName;
     }
 
 
+    /**
+     * creates a database connection and returns the connection object.
+     *
+     * @return a connection object which represents the database connection.
+     * @throws DaoException if there is an error in creating the database connection.
+     */
     public static Connection getConnection() throws DaoException {
 
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -34,6 +46,12 @@ public class Dao {
         return con;
     }
 
+    /**
+     * frees the database connection by closing the passed connection object.
+     *
+     * @param con connection object to be closed and freed.
+     * @throws DaoException if there is an error in closing the database connection.
+     */
     public static void freeConnection(Connection con) throws DaoException {
         try {
             if (con != null) {
