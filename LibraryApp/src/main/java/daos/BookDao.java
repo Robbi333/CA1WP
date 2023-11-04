@@ -111,6 +111,39 @@ public class BookDao extends Dao {
             }
         }
     }
+
+    public boolean updateBookCopies(int bookID, int changeAmount) throws DaoException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = this.getConnection();
+            String updateQuery = "UPDATE book SET TotalCopies = TotalCopies + ? WHERE BookID = ?";
+            ps = con.prepareStatement(updateQuery);
+            ps.setInt(1, changeAmount);
+            ps.setInt(2, bookID);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Error updating book copies: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
+        }
+    }
 }
 
 
