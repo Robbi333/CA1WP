@@ -2,9 +2,11 @@ package LibraryUtils;
 
 import Business.members;
 import daos.MembersDao;
+
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -82,7 +84,7 @@ public class Main {
                             System.out.println("Registration successful!");
                             isAuthenticated = true;
                         } else {
-                            System.out.println("Registration failed. Please try again.");
+                           System.out.println("Registration failed. Please try again.");
                         }
                     } else {
                         System.out.println("You are already logged in.");
@@ -115,9 +117,9 @@ public class Main {
                     //pay late fees
                     break;
                 case 10:
-                    //logout
+                    System.exit(0);
                     break;
-                case 11:
+                    case 11:
                     if (userType.equals("admin")) {
                         // add a book
                     }else{
