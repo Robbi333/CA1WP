@@ -1,5 +1,9 @@
 package LibraryUtils;
 
+import Business.members;
+import daos.MembersDao;
+import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -47,9 +51,42 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                  //register
-                    //call the register and then set isAuthenticated to true
-                    isAuthenticated = true;
+                    if (!isAuthenticated) {
+                        System.out.println("Registration:");
+                        System.out.print("Enter your username: ");
+                        String username = scanner.nextLine();
+                        System.out.print("Enter your password: ");
+                        String password = scanner.nextLine();
+                        System.out.print("Enter your first name: ");
+                        String firstName = scanner.nextLine();
+                        System.out.print("Enter your last name: ");
+                        String lastName = scanner.nextLine();
+                        System.out.print("Enter your email: ");
+                        String email = scanner.nextLine();
+                        System.out.print("Enter your address line 1: ");
+                        String address1 = scanner.nextLine();
+                        System.out.print("Enter your address line 2: ");
+                        String address2 = scanner.nextLine();
+                        System.out.print("Enter your Eircode: ");
+                        String eircode = scanner.nextLine();
+                        System.out.print("Enter your phone number: ");
+                        String phoneNumber = scanner.nextLine();
+
+                        // You can also validate user inputs here and perform registration logic
+                        // Call your insertMember method here
+                        members newMember = new members(username, password, firstName, lastName, email, address1, address2, eircode, phoneNumber, LocalDate.now());
+                        newMember.setAdmin(0); // Default to non-admin
+                        boolean isRegistered = MembersDao.insertMember(connection, newMember);
+
+                        if (isRegistered) {
+                            System.out.println("Registration successful!");
+                            isAuthenticated = true;
+                        } else {
+                            System.out.println("Registration failed. Please try again.");
+                        }
+                    } else {
+                        System.out.println("You are already logged in.");
+                    }
                     break;
                 case 2:
                    //login
