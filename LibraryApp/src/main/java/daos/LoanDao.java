@@ -207,6 +207,17 @@ public class LoanDao extends Dao {
        }
    }
 
+    /**
+     * checks if a book is overdue the date for member
+     *
+     * method calls to the database to see if the book with the passed Bookid
+     * loaned by member is overdue based on the duedate
+     *
+     * @param memberID id of member who borrowed book
+     * @param bookid the id of the book
+     * @return boolean if book is overdue return true otherwise false
+     * @throws RuntimeException if error occurs while checking book overdue
+     */
    public boolean isLate(int memberID,int bookid){
        Connection con = null;
        PreparedStatement ps = null;
@@ -237,6 +248,16 @@ public class LoanDao extends Dao {
        }
    }
 
+    /**
+     *adds a late fee to specific loan in database
+     *
+     * this method updates the late fee for specific loan thats
+     * linked to the member and book
+     *
+     * @param memberID id of the member linked to the loan
+     * @param bookid id of the book linked with the loan
+     * @throws RuntimeException if an error occurs when adding late fee or database connection
+     */
     private void addLateFeeToLoan(int memberID, int bookid) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -271,7 +292,16 @@ public class LoanDao extends Dao {
         return borrowedBooks.contains(bookid);
     }
 
-    public static boolean isCreditCardValid(String cardNumber, String expiryDate) {
+    /**
+     * validates the credit card number using Luhn algorithm
+     *
+     * this checks credit length and removes any spaces or anything user might put in
+     *
+     *
+     * @param cardNumber the credit card number to validate
+     * @return if credit card number is valid return true otherwise return false
+     */
+    public static boolean isCreditCardValid(String cardNumber) {
 
         cardNumber = cardNumber.replaceAll("[^0-9]", "");
 
@@ -279,14 +309,36 @@ public class LoanDao extends Dao {
         if (length < 13 || length > 19) {
             return false;
         }
+        int sum = 0;
+        boolean doubleDigit = false;
 
-        if (!isValidExpiryDate(expiryDate)) {
-            return false;
+        //Luhn algorithm
+        for (int i = length - 1; i >= 0; i--) {
+            int digit = Character.getNumericValue(cardNumber.charAt(i));
+
+            if (doubleDigit) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+
+            sum += digit;
+            doubleDigit = !doubleDigit;
         }
-        //just checking for lenght and valid date time
-        return true;
+
+        return (sum % 10 == 0);
     }
 
+    /**
+     * validates the format and checks if date is correct
+     *
+     * this method checks the format of the date, and it
+     * expires in the future cant be less than the current date
+     *
+     * @param expiryDate
+     * @return
+     */
     private static boolean isValidExpiryDate(String expiryDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
@@ -299,10 +351,26 @@ public class LoanDao extends Dao {
         }
     }
 
+    /**
+     * checks and processes the payment for a late fee for a member
+     *
+     * this method validates credit card info calling the 2 other methods to check.
+     * once valid then processes payment for late fee. if both are true proceed onwards
+     * otherwise return false.
+     *
+     *
+     * @param memberId id of the member making payment for late fee
+     * @param cardNumber the members credit card number
+     * @param expiryDate the expiry date of the credit card
+     * @return true if the payment was successful and credit card info is correct
+     * @throws RuntimeException if error occurs with payment or database connection
+     */
+    public boolean payLateFeeValidate(int memberId,String cardNumber,String expiryDate) {
 
-    public boolean payLateFeeValidate(int memberId, double lateFee,String cardNumber,String expiryDate) {
-
-        if (!isCreditCardValid(cardNumber, expiryDate)) {
+        if (!isCreditCardValid(cardNumber)) {
+            return false;
+        }
+        if(!isValidExpiryDate(expiryDate)){
             return false;
         }
         Connection con = null;
@@ -317,11 +385,7 @@ public class LoanDao extends Dao {
 
             int rows = ps.executeUpdate();
 
-            if (rows > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return rows>0;
 
         } catch (DaoException e) {
             throw new RuntimeException("Error paying late fee: " + e.getMessage());
